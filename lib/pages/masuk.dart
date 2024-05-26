@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gasku/components/filled_button.dart';
 import 'package:gasku/components/text_form_field.dart';
+import 'package:gasku/pages/daftar.dart';
 
 class MyMasukPage extends StatefulWidget {
   const MyMasukPage({super.key});
@@ -16,6 +17,7 @@ class _MyMasukPageState extends State<MyMasukPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 36),
         child: Column(
@@ -77,13 +79,20 @@ class _MyMasukPageState extends State<MyMasukPage> {
                 children: <TextSpan>[
                   TextSpan(
                     text: 'Daftar di sini',
-                    recognizer: TapGestureRecognizer()..onTap = () {},
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const MyDaftarPage(),
+                          ),
+                        );
+                      },
                     style:
                         TextStyle(color: Theme.of(context).colorScheme.primary),
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

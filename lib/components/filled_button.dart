@@ -15,7 +15,7 @@ class MyFilledButton extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
+        padding: const EdgeInsets.symmetric(vertical: 14),
         child: Text(text),
       ),
     );

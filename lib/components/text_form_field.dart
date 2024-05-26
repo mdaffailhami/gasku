@@ -6,11 +6,15 @@ class MyTextFormField extends StatefulWidget {
     this.isObscure = false,
     required this.title,
     required this.label,
+    this.prefix,
+    this.keyboardType,
   });
 
   final bool isObscure;
   final String title;
   final String label;
+  final Widget? prefix;
+  final TextInputType? keyboardType;
 
   @override
   State<MyTextFormField> createState() => _MyTextFormFieldState();
@@ -31,10 +35,16 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
         ),
         const SizedBox(height: 7),
         TextFormField(
+          keyboardType: widget.keyboardType,
           obscureText: widget.isObscure ? _isInvisible : false,
+          textInputAction: TextInputAction.next,
+          onFieldSubmitted: (a) {
+            print('SUBMIT');
+          },
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             labelText: widget.label,
+            prefix: widget.prefix,
             suffixIcon: widget.isObscure
                 ? IconButton(
                     onPressed: () {
