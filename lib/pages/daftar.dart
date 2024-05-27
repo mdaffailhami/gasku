@@ -24,7 +24,7 @@ class _MyDaftarPageState extends State<MyDaftarPage> {
             Icons.arrow_back,
             color: Theme.of(context).colorScheme.primary,
           ),
-          tooltip: 'Back',
+          tooltip: 'Kembali',
         ),
         centerTitle: true,
         title: Text(
