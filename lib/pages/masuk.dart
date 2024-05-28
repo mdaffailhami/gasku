@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:gasku/components/filled_button.dart';
-import 'package:gasku/components/text_form_field.dart';
+import 'package:gasku/widgets/filled_button.dart';
+import 'package:gasku/widgets/text_form_field.dart';
 import 'package:gasku/pages/daftar.dart';
 
 class MyMasukPage extends StatefulWidget {
