@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gasku/pages/main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'pages/masuk.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      home: const MyMasukPage(),
+      home: const MyMainPage(),
     );
   }
 }
