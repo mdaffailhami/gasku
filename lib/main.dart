@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gasku/pages/main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'pages/masuk.dart';
 
 void main() {
   runApp(const MyApp());

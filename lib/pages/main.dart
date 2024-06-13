@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gasku/pages/beranda.dart';
 
 class MyMainPage extends StatefulWidget {
   const MyMainPage({super.key});
@@ -9,8 +10,6 @@ class MyMainPage extends StatefulWidget {
 
 class _MyMainPageState extends State<MyMainPage> {
   int _selectedPageIndex = 0;
-
-  void _onTapped(int index) => setState(() => _selectedPageIndex = index);
 
   // final List<Widget> _pages = <Widget>[
   // Text(
@@ -83,6 +82,12 @@ class _MyMainPageState extends State<MyMainPage> {
           ),
         ],
       ),
+      body: const <Widget>[
+        MyBerandaPage(),
+        SizedBox(),
+        SizedBox(),
+        SizedBox(),
+      ][_selectedPageIndex],
     );
   }
 }
