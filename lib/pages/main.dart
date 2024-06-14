@@ -16,9 +16,71 @@ class _MyMainPageState extends State<MyMainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('GasKu'),
-        // elevation: 10,
-        // surfaceTintColor: Colors.transparent,
+        title: Text(
+          'GasKu',
+          style: TextStyle(
+            fontSize: 28,
+            color: Theme.of(context).colorScheme.primary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        surfaceTintColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        elevation: 2,
+        shadowColor: Colors.black.withOpacity(0.6),
+        actions: [
+          Container(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.4,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Daffa Ilhami',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                  ),
+                  Text(
+                    '638127491',
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(width: 10),
+        ],
+      ),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() => _selectedPageIndex = index);
+        },
+        selectedIndex: _selectedPageIndex,
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.home_outlined),
+            label: 'Beranda',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.credit_card),
+            label: 'E-Tiket',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.history),
+            label: 'Riwayat',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.person_outline),
+            label: 'Profil',
+          ),
+        ],
       ),
       // bottomNavigationBar: BottomNavigationBar(
       //   items: const [
@@ -46,30 +108,6 @@ class _MyMainPageState extends State<MyMainPage> {
       //   type: BottomNavigationBarType.fixed,
       //   onTap: _onTabTapped,
       // ),
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() => _selectedPageIndex = index);
-        },
-        selectedIndex: _selectedPageIndex,
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            label: 'Beranda',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.credit_card),
-            label: 'E-Tiket',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.history),
-            label: 'Riwayat',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            label: 'Profil',
-          ),
-        ],
-      ),
       body: const <Widget>[
         MyBerandaPage(),
         SizedBox(),
