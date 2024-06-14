@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gasku/pages/kontak_kami.dart';
 import 'package:gasku/widgets/divider.dart';
 import 'package:gasku/widgets/list_tile_button.dart';
 
@@ -166,21 +167,29 @@ class MyProfilPage extends StatelessWidget {
                   MyListTileButton(
                     icon: Icons.question_mark,
                     text: 'Pusat Bantuan',
+                    onTap: () {},
                   ),
                   MyDivider(),
                   MyListTileButton(
                     icon: Icons.shield_moon_outlined,
                     text: 'Pemberitahuan Privasi',
+                    onTap: () {},
                   ),
                   MyDivider(),
                   MyListTileButton(
                     icon: Icons.notes,
                     text: 'FAQ',
+                    onTap: () {},
                   ),
                   MyDivider(),
                   MyListTileButton(
                     icon: Icons.contacts_outlined,
                     text: 'Kontak Kami',
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const MyKontakKamiPage(),
+                      ),
+                    ),
                   ),
                 ],
               ),

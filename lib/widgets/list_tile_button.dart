@@ -5,10 +5,12 @@ class MyListTileButton extends StatelessWidget {
     super.key,
     required this.icon,
     required this.text,
+    required this.onTap,
   });
 
   final IconData icon;
   final String text;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class MyListTileButton extends StatelessWidget {
         Icons.arrow_forward_ios,
         color: Theme.of(context).colorScheme.outline,
       ),
-      onTap: () {},
+      onTap: () => onTap(),
     );
   }
 }

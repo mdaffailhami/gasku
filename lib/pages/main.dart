@@ -18,16 +18,15 @@ class _MyMainPageState extends State<MyMainPage> {
       appBar: AppBar(
         title: Text(
           'GasKu',
-          style: TextStyle(
-            fontSize: 28,
-            color: Theme.of(context).colorScheme.primary,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold,
+              ),
         ),
         surfaceTintColor: Theme.of(context).colorScheme.surface,
         backgroundColor: Theme.of(context).colorScheme.surface,
-        elevation: 2,
-        shadowColor: Colors.black.withOpacity(0.6),
+        elevation: 5,
+        shadowColor: Colors.black.withOpacity(0.4),
         actions: [
           Container(
             child: SizedBox(
