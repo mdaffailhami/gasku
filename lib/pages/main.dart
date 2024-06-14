@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gasku/pages/beranda.dart';
+import 'package:gasku/pages/profil.dart';
 
 class MyMainPage extends StatefulWidget {
   const MyMainPage({super.key});
@@ -11,26 +12,13 @@ class MyMainPage extends StatefulWidget {
 class _MyMainPageState extends State<MyMainPage> {
   int _selectedPageIndex = 0;
 
-  // final List<Widget> _pages = <Widget>[
-  // Text(
-  //   'Index 0: Home',
-  //   style: optionStyle,
-  // ),
-  // Text(
-  //   'Index 1: Business',
-  //   style: optionStyle,
-  // ),
-  // Text(
-  //   'Index 2: School',
-  //   style: optionStyle,
-  // ),
-  // ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('GasKu'),
+        // elevation: 10,
+        // surfaceTintColor: Colors.transparent,
       ),
       // bottomNavigationBar: BottomNavigationBar(
       //   items: const [
@@ -86,7 +74,7 @@ class _MyMainPageState extends State<MyMainPage> {
         MyBerandaPage(),
         SizedBox(),
         SizedBox(),
-        SizedBox(),
+        MyProfilPage(),
       ][_selectedPageIndex],
     );
   }
