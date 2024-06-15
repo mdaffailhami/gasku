@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gasku/pages/beranda.dart';
+import 'package:gasku/pages/e_ticket.dart';
 import 'package:gasku/pages/profil.dart';
 
 class MyMainPage extends StatefulWidget {
@@ -109,7 +110,7 @@ class _MyMainPageState extends State<MyMainPage> {
       // ),
       body: const <Widget>[
         MyBerandaPage(),
-        SizedBox(),
+        MyETicketPage(),
         SizedBox(),
         MyProfilPage(),
       ][_selectedPageIndex],
