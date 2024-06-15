@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gasku/pages/detail_pangkalan.dart';
 
 class MyPangkalanCard extends StatelessWidget {
   const MyPangkalanCard({super.key});
@@ -11,7 +12,11 @@ class MyPangkalanCard extends StatelessWidget {
         color: Theme.of(context).colorScheme.surface,
         child: InkWell(
           borderRadius: BorderRadius.circular(12.0),
-          onTap: () {},
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const MyDetailPangkalanPage(),
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Row(

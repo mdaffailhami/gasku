@@ -170,13 +170,13 @@ class MyProfilPage extends StatelessWidget {
                     text: 'Pusat Bantuan',
                     onTap: () {},
                   ),
-                  MyDivider(),
+                  MyDivider(height: 1, indent: 12, endIndent: 12),
                   MyListTileButton(
                     icon: Icons.shield_moon_outlined,
                     text: 'Pemberitahuan Privasi',
                     onTap: () {},
                   ),
-                  MyDivider(),
+                  MyDivider(height: 1, indent: 12, endIndent: 12),
                   MyListTileButton(
                     icon: Icons.notes,
                     text: 'FAQ',
@@ -186,7 +186,7 @@ class MyProfilPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  MyDivider(),
+                  MyDivider(height: 1, indent: 12, endIndent: 12),
                   MyListTileButton(
                     icon: Icons.contacts_outlined,
                     text: 'Kontak Kami',
