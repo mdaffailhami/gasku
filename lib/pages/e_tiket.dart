@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class MyETicketPage extends StatelessWidget {
-  const MyETicketPage({super.key});
+class MyETiketPage extends StatelessWidget {
+  const MyETiketPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class MyETicketPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: Text(
-                'E-Ticket\nLPG Bersubsidi',
+                'E-Tiket\nLPG Bersubsidi',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
@@ -86,7 +86,7 @@ class MyETicketPage extends StatelessWidget {
                     ),
                     SizedBox(height: 15),
                     Text(
-                      'Nomor E-Ticket',
+                      'Nomor E-Tiket',
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall

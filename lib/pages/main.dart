@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gasku/pages/beranda.dart';
-import 'package:gasku/pages/e_ticket.dart';
+import 'package:gasku/pages/e_tiket.dart';
 import 'package:gasku/pages/profil.dart';
+import 'package:gasku/pages/riwayat.dart';
 
 class MyMainPage extends StatefulWidget {
   const MyMainPage({super.key});
@@ -114,8 +115,8 @@ class _MyMainPageState extends State<MyMainPage> {
       // ),
       body: const <Widget>[
         MyBerandaPage(),
-        MyETicketPage(),
-        SizedBox(),
+        MyETiketPage(),
+        MyRiwayatPage(),
         MyProfilPage(),
       ][_selectedPageIndex],
     );
