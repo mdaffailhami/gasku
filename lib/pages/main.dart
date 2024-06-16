@@ -37,7 +37,7 @@ class _MyMainPageState extends State<MyMainPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Daffa Ilhami',
+                    'Muhammad Daffa Ilhami',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -46,7 +46,7 @@ class _MyMainPageState extends State<MyMainPage> {
                         ),
                   ),
                   Text(
-                    '638127491',
+                    '612896192837',
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
                           color: Theme.of(context).colorScheme.outline,
                         ),
@@ -59,6 +59,10 @@ class _MyMainPageState extends State<MyMainPage> {
         ],
       ),
       bottomNavigationBar: NavigationBar(
+        surfaceTintColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        elevation: 5,
+        shadowColor: Colors.black.withOpacity(0.4),
         onDestinationSelected: (int index) {
           setState(() => _selectedPageIndex = index);
         },

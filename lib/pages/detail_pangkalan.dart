@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:gasku/widgets/comment.dart';
 import 'package:gasku/widgets/divider.dart';
-import 'package:gasku/widgets/filled_button.dart';
 import 'package:gasku/widgets/icon_filled_button.dart';
 
 class MyDetailPangkalanPage extends StatelessWidget {
