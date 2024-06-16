@@ -13,9 +13,9 @@ class MyBerandaPage extends StatefulWidget {
 }
 
 class _MyBerandaPageState extends State<MyBerandaPage> {
-  bool _isTerdekatSelected = true;
-  bool _isTermurahSelected = false;
+  bool _isSemuaSelected = true;
   bool _isTerbaikSelected = false;
+  bool _isTerdekatSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -74,24 +74,36 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MyFilterChip(
+                      label: 'Semua',
+                      isSelected: _isSemuaSelected,
+                      onSelected: (_) {
+                        setState(() {
+                          _isSemuaSelected = true;
+                          _isTerbaikSelected = false;
+                          _isTerdekatSelected = false;
+                        });
+                      },
+                    ),
+                    MyFilterChip(
+                      label: 'Terbaik',
+                      isSelected: _isTerbaikSelected,
+                      onSelected: (_) {
+                        setState(() {
+                          _isSemuaSelected = false;
+                          _isTerbaikSelected = true;
+                          _isTerdekatSelected = false;
+                        });
+                      },
+                    ),
+                    MyFilterChip(
                       label: 'Terdekat',
                       isSelected: _isTerdekatSelected,
-                      onSelected: (value) {
-                        setState(() => _isTerdekatSelected = value);
-                      },
-                    ),
-                    MyFilterChip(
-                      label: 'Termurah',
-                      isSelected: _isTermurahSelected,
-                      onSelected: (value) {
-                        setState(() => _isTermurahSelected = value);
-                      },
-                    ),
-                    MyFilterChip(
-                      label: ' Terbaik ',
-                      isSelected: _isTerbaikSelected,
-                      onSelected: (value) {
-                        setState(() => _isTerbaikSelected = value);
+                      onSelected: (_) {
+                        setState(() {
+                          _isSemuaSelected = false;
+                          _isTerbaikSelected = false;
+                          _isTerdekatSelected = true;
+                        });
                       },
                     ),
                   ],
