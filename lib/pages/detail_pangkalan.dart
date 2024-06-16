@@ -48,8 +48,8 @@ class MyDetailPangkalanPage extends StatelessWidget {
               items: [1, 2, 3, 4, 5].map((i) {
                 return Builder(
                   builder: (BuildContext context) {
-                    return Image.asset(
-                      'assets/gasku_logo.png',
+                    return Image.network(
+                      'https://pict-a.sindonews.net/dyn/850/pena/news/2020/10/14/194/196024/pertamina-pecat-pangkalan-elpiji-gas-3-kg-terbukti-nakal-fuk.jpg',
                       width: double.infinity,
                       fit: BoxFit.cover,
                     );
@@ -79,17 +79,20 @@ class MyDetailPangkalanPage extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       text: 'Rp',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                       children: <TextSpan>[
                         TextSpan(
                           text: '23.000',
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge
-                              ?.copyWith(fontWeight: FontWeight.bold),
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                       ],
                     ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gasku/models/pangkalan.dart';
 import 'package:gasku/pages/detail_pangkalan.dart';
 
 class MyPangkalanCard extends StatelessWidget {
-  const MyPangkalanCard({super.key});
+  const MyPangkalanCard({super.key, required this.pangkalan});
+
+  final Pangkalan pangkalan;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +28,8 @@ class MyPangkalanCard extends StatelessWidget {
                   flex: 2,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      'assets/akane.png',
+                    child: Image.network(
+                      pangkalan.urlGambar,
                       height: double.infinity,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -40,15 +43,16 @@ class MyPangkalanCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Pangkalan LPG Rahmi',
+                        pangkalan.nama,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium
-                            ?.copyWith(fontWeight: FontWeight.bold),
+                            ?.copyWith(
+                                fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       Text(
-                        'Jl. Sultan Adam Komplek Mekar Sari Blok 24B, No.52',
+                        pangkalan.alamat,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style:
@@ -56,15 +60,7 @@ class MyPangkalanCard extends StatelessWidget {
                                   color: Theme.of(context).colorScheme.outline,
                                 ),
                       ),
-                      SizedBox(height: 3),
-                      Text(
-                        'Stok: 12',
-                        overflow: TextOverflow.ellipsis,
-                        style:
-                            Theme.of(context).textTheme.labelMedium?.copyWith(
-                                  color: Theme.of(context).colorScheme.outline,
-                                ),
-                      ),
+                      SizedBox(height: 2),
                       Row(
                         children: [
                           Icon(
@@ -74,7 +70,7 @@ class MyPangkalanCard extends StatelessWidget {
                           ),
                           SizedBox(width: 3),
                           Text(
-                            '7.4',
+                            pangkalan.rating.toString(),
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium
@@ -84,14 +80,33 @@ class MyPangkalanCard extends StatelessWidget {
                           )
                         ],
                       ),
-                      // SizedBox(height: 8),
-                      Text(
-                        'Rp23.000',
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge
-                            ?.copyWith(fontWeight: FontWeight.bold),
+                      SizedBox(height: 8),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Rp',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: pangkalan.harga
+                                  .toString()
+                                  .replaceAll('Rp', ''),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

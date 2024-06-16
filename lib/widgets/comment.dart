@@ -30,7 +30,7 @@ class MyComment extends StatelessWidget {
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
               Text(
-                'lorem asihfakf kasbfsakfgask fsakfbsakljfl ksabfjksabfkj sbfkjasbf kasjf askjdasjkd kajs gfksajgf kasjfg askjgf askjgf askjgfsakjfgaskjgf kjgsakfj gakjsgf kjasgfjkas gf',
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi maxime quam, sit fugiat veritatis animi? Et at odit modi nihil. Cumque dignissimos accusamus laboriosam ipsam ab quisquam iste impedit enim?',
                 maxLines: 10,
                 style: TextStyle(color: Theme.of(context).colorScheme.outline),
               ),

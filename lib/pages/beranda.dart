@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:gasku/models/pangkalan.dart';
+import 'package:gasku/models/rupiah.dart';
 import 'package:gasku/widgets/filter_chip.dart';
 import 'package:gasku/widgets/pangkalan_card.dart';
 
@@ -13,7 +15,7 @@ class MyBerandaPage extends StatefulWidget {
 class _MyBerandaPageState extends State<MyBerandaPage> {
   bool _isTerdekatSelected = true;
   bool _isTermurahSelected = false;
-  bool _isTersediaSelected = false;
+  bool _isTerbaikSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +34,8 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
           items: [1, 2, 3, 4, 5].map((i) {
             return Builder(
               builder: (BuildContext context) {
-                return Image.asset(
-                  'assets/akane.png',
+                return Image.network(
+                  'https://sumut.sahabatrakyat.com/wp-content/uploads/2022/06/195031-04-gas.jpg',
                   width: double.infinity,
                   fit: BoxFit.cover,
                 );
@@ -50,11 +52,21 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
                 TextField(
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(14),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(100)),
+                      borderSide: BorderSide(
+                        width: 1.3,
+                        color: Theme.of(context).colorScheme.outlineVariant,
+                      ),
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(100)),
                     ),
                     hintText: 'Cari Pangkalan',
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
                   ),
                 ),
                 SizedBox(height: 10),
@@ -76,10 +88,10 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
                       },
                     ),
                     MyFilterChip(
-                      label: 'Tersedia',
-                      isSelected: _isTersediaSelected,
+                      label: ' Terbaik ',
+                      isSelected: _isTerbaikSelected,
                       onSelected: (value) {
-                        setState(() => _isTersediaSelected = value);
+                        setState(() => _isTerbaikSelected = value);
                       },
                     ),
                   ],
@@ -88,10 +100,39 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      MyPangkalanCard(),
-                      MyPangkalanCard(),
-                      MyPangkalanCard(),
-                      MyPangkalanCard(),
+                      MyPangkalanCard(
+                        pangkalan: Pangkalan(
+                          nama: 'Pangkalan LPG Rahmi',
+                          alamat:
+                              'Jl. Sultan Adam Komplek Mekar Sari Blok 24B, No.52',
+                          urlGambar:
+                              'https://pict-a.sindonews.net/dyn/850/pena/news/2020/10/14/194/196024/pertamina-pecat-pangkalan-elpiji-gas-3-kg-terbukti-nakal-fuk.jpg',
+                          rating: 7.4,
+                          harga: Rupiah(23000),
+                        ),
+                      ),
+                      MyPangkalanCard(
+                        pangkalan: Pangkalan(
+                          nama: 'Pangkalan H. Naim',
+                          alamat:
+                              'Jl. Banua Anyar Komp. 14 RT.10 RW.001 No.A98',
+                          urlGambar:
+                              'https://awsimages.detik.net.id/visual/2022/11/03/pangkalan-lpg-di-tangerang-selatan-2_169.jpeg?w=650',
+                          rating: 8.2,
+                          harga: Rupiah(25000),
+                        ),
+                      ),
+                      MyPangkalanCard(
+                        pangkalan: Pangkalan(
+                          nama: 'Pangkalan LPG Putra',
+                          alamat:
+                              'Jl. Bintara Komplek UWU Uwaw Blok 10A, No.35',
+                          urlGambar:
+                              'https://asset-2.tstatic.net/pontianak/foto/bank/images/cara-daftar-pangkalan-gas-lpg-3-kg-dan-cara-daftar-agen-gas-lpg-3-kg-login-kemitraanpertaminacom.jpg',
+                          rating: 7.4,
+                          harga: Rupiah(23000),
+                        ),
+                      ),
                     ],
                   ),
                 ),
