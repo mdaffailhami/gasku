@@ -35,7 +35,7 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
             return Builder(
               builder: (BuildContext context) {
                 return Image.network(
-                  'https://sumut.sahabatrakyat.com/wp-content/uploads/2022/06/195031-04-gas.jpg',
+                  'https://awsimages.detik.net.id/visual/2022/01/28/infografis-ri-tajir-gas-alam-tapi-kok-impor-lpg_169.jpeg?w=650',
                   width: double.infinity,
                   fit: BoxFit.cover,
                 );

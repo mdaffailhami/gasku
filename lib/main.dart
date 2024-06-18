@@ -15,13 +15,18 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'GasKu',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xff4A6BD4),
-          primary: const Color(0xff4A6BD4),
-        ),
-        useMaterial3: true,
-        textTheme: GoogleFonts.poppinsTextTheme(),
-      ),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xff4A6BD4),
+            primary: const Color(0xff4A6BD4),
+          ),
+          useMaterial3: true,
+          textTheme: GoogleFonts.poppinsTextTheme(),
+          bottomSheetTheme: BottomSheetThemeData(
+            showDragHandle: true,
+            dragHandleSize: Size(100, 10),
+            dragHandleColor: Colors.white,
+            backgroundColor: Colors.transparent,
+          )),
       home: const MyMainPage(),
     );
   }

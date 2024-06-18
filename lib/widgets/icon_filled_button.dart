@@ -6,16 +6,18 @@ class MyIconFilledButton extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.color,
+    required this.onPressed,
   });
 
   final IconData icon;
   final String label;
   final Color color;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
     return FilledButton.icon(
-      onPressed: () {},
+      onPressed: onPressed,
       icon: Icon(icon),
       label: Text(label),
       style: FilledButton.styleFrom(

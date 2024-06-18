@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:gasku/components/ulasan_modal_bottom_sheet.dart';
 import 'package:gasku/widgets/comment.dart';
 import 'package:gasku/widgets/divider.dart';
 import 'package:gasku/widgets/icon_filled_button.dart';
@@ -106,6 +107,7 @@ class MyDetailPangkalanPage extends StatelessWidget {
                           icon: Icons.message_outlined,
                           label: 'Chat',
                           color: Colors.green,
+                          onPressed: () {},
                         ),
                       ),
                       SizedBox(width: 6),
@@ -114,6 +116,7 @@ class MyDetailPangkalanPage extends StatelessWidget {
                           icon: Icons.pin_drop_outlined,
                           label: 'Maps',
                           color: Theme.of(context).colorScheme.primary,
+                          onPressed: () {},
                         ),
                       ),
                     ],
@@ -202,6 +205,15 @@ class MyDetailPangkalanPage extends StatelessWidget {
                         icon: Icons.add,
                         label: 'Beri Ulasan',
                         color: Theme.of(context).colorScheme.primary,
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (context) {
+                              return MyUlasanModalBottomSheet();
+                            },
+                          );
+                        },
                       ),
                     ],
                   ),
