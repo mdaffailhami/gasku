@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gasku/pages/edit_profil.dart';
 import 'package:gasku/pages/faq.dart';
 import 'package:gasku/pages/kontak_kami.dart';
 import 'package:gasku/widgets/divider.dart';
@@ -100,7 +101,11 @@ class MyProfilPage extends StatelessWidget {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const MyEditProfilPage(),
+                            ),
+                          ),
                           icon: Icon(Icons.edit_square, size: 28),
                         )
                       ],

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class MyTextFormField extends StatefulWidget {
   const MyTextFormField({
     super.key,
+    this.initialValue,
     this.isObscure = false,
     required this.title,
     required this.label,
@@ -10,6 +11,7 @@ class MyTextFormField extends StatefulWidget {
     this.keyboardType,
   });
 
+  final String? initialValue;
   final bool isObscure;
   final String title;
   final String label;
@@ -35,6 +37,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
         ),
         const SizedBox(height: 7),
         TextFormField(
+          initialValue: widget.initialValue,
           keyboardType: widget.keyboardType,
           obscureText: widget.isObscure ? _isInvisible : false,
           textInputAction: TextInputAction.next,
