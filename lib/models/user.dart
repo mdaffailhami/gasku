@@ -36,6 +36,8 @@ class User {
   }
 
   static Future<void> add(User user) async {
+    if (await User.get(user.nik) != null) throw 'NIK sudah terdaftar';
+
     final hashedPassword = sha1.convert(utf8.encode(user.kataSandi)).toString();
     final newUser = user.copyWith(kataSandi: hashedPassword);
 
@@ -52,8 +54,7 @@ class User {
       return null;
     }
 
-    print(snapshot.value);
-    return User.fromMap(snapshot.value as Map<String, dynamic>);
+    return User.fromMap(snapshot.value as Map);
   }
 
   static Future<void> resetKataSandi(String nik, String kataSandiBaru) async {
@@ -74,7 +75,7 @@ class User {
     };
   }
 
-  factory User.fromMap(Map<String, dynamic> map) {
+  factory User.fromMap(Map map) {
     return User(
       nik: map['nik'] as String,
       nama: map['nama'] as String,

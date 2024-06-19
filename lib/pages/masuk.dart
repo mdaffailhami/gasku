@@ -14,6 +14,11 @@ class MyMasukPage extends StatefulWidget {
 class _MyMasukPageState extends State<MyMasukPage> {
   final _formKey = GlobalKey<FormState>();
 
+  String _nik = '';
+  String _kataSandi = '';
+
+  Future<void> onSubmit() async {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,16 +43,38 @@ class _MyMasukPageState extends State<MyMasukPage> {
             const SizedBox(height: 20),
             Form(
               key: _formKey,
-              child: const Column(
+              child: Column(
                 children: [
                   MyTextFormField(
                     title: 'Nomor Induk Kependudukan (NIK)',
                     label: 'Masukkan NIK Anda',
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) => _nik = value,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'NIK tidak boleh kosong';
+                      }
+                      if (value.length != 16) {
+                        return 'NIK harus 16 digit';
+                      }
+                      return null;
+                    },
                   ),
                   MyTextFormField(
                     isObscure: true,
                     title: 'Kata Sandi',
                     label: 'Masukkan Kata Sandi Anda',
+                    onChanged: (value) => _kataSandi = value,
+                    onFieldSubmitted: onSubmit,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Kata Sandi tidak boleh kosong';
+                      }
+                      if (value.length > 40) {
+                        return 'Kata Sandi maksimal 40 karakter';
+                      }
+                      return null;
+                    },
                   ),
                 ],
               ),

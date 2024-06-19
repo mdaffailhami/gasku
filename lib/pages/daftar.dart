@@ -27,30 +27,46 @@ class _MyDaftarPageState extends State<MyDaftarPage> {
 
     showLoadingScreen(context);
 
-    await User.add(
-      User(
-        nik: _nik,
-        nama: _nama,
-        kk: _kk,
-        noTelepon: _noTelepon,
-        kataSandi: _kataSandi,
-      ),
-    );
+    try {
+      await User.add(
+        User(
+          nik: _nik,
+          nama: _nama,
+          kk: _kk,
+          noTelepon: _noTelepon,
+          kataSandi: _kataSandi,
+        ),
+      );
 
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (_) => MyMasukPage()),
-      (_) => false,
-    );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => MyMasukPage()),
+        (_) => false,
+      );
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('Akun berhasil didaftarkan'),
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      action: SnackBarAction(
-        label: 'Tutup',
-        onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-      ),
-    ));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Akun berhasil didaftarkan'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        action: SnackBarAction(
+          label: 'Tutup',
+          onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+        ),
+      ));
+    } catch (e) {
+      if (e == 'NIK sudah terdaftar') {
+        Navigator.pop(context);
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(e as String),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          action: SnackBarAction(
+            label: 'Tutup',
+            onPressed: () =>
+                ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+          ),
+        ));
+      }
+    }
   }
 
   @override
