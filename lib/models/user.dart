@@ -49,10 +49,7 @@ class User {
   static Future<User?> get(String nik) async {
     final snapshot = await FirebaseDatabase.instance.ref('users/$nik').get();
 
-    if (!snapshot.exists) {
-      print('User tidak ditemukan!');
-      return null;
-    }
+    if (!snapshot.exists) return null;
 
     return User.fromMap(snapshot.value as Map);
   }

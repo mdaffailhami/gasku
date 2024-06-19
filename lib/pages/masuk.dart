@@ -1,5 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gasku/cubits/user_masuk.dart';
+import 'package:gasku/pages/main.dart';
 import 'package:gasku/widgets/filled_button.dart';
 import 'package:gasku/widgets/text_form_field.dart';
 import 'package:gasku/pages/daftar.dart';
@@ -17,7 +20,25 @@ class _MyMasukPageState extends State<MyMasukPage> {
   String _nik = '';
   String _kataSandi = '';
 
-  Future<void> onSubmit() async {}
+  Future<void> onSubmit(BuildContext context) async {
+    try {
+      await context
+          .read<UserMasukCubit>()
+          .masuk(nik: _nik, kataSandi: _kataSandi);
+
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => MyMainPage()));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e as String),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        action: SnackBarAction(
+          label: 'Tutup',
+          onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+        ),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +86,7 @@ class _MyMasukPageState extends State<MyMasukPage> {
                     title: 'Kata Sandi',
                     label: 'Masukkan Kata Sandi Anda',
                     onChanged: (value) => _kataSandi = value,
-                    onFieldSubmitted: onSubmit,
+                    onFieldSubmitted: () => onSubmit(context),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Kata Sandi tidak boleh kosong';
@@ -94,9 +115,12 @@ class _MyMasukPageState extends State<MyMasukPage> {
               ),
             ),
             const SizedBox(height: 35),
-            const SizedBox(
+            SizedBox(
               width: double.infinity,
-              child: MyFilledButton(text: 'Masuk'),
+              child: MyFilledButton(
+                text: 'Masuk',
+                onPressed: () => onSubmit(context),
+              ),
             ),
             const SizedBox(height: 15),
             RichText(
