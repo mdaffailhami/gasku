@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "389060178006",
+    "firebase_url": "https://gasku-kmipn-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "gasku-kmipn",
+    "storage_bucket": "gasku-kmipn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389060178006:android:4e9cc16d75a22743018bf7",
+        "android_client_info": {
+          "package_name": "com.mdi.gasku"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo3VxcYVV7IlxPLq7txSvzGrZh8ThGrWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

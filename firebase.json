@@ -1,0 +1,21 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "gasku-kmipn",
+                    "appId": "1:389060178006:android:4e9cc16d75a22743018bf7",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "gasku-kmipn",
+                    "configurations": {
+                        "android": "1:389060178006:android:4e9cc16d75a22743018bf7"
+                    }
+                }
+            }
+        }
+    }
+}
