@@ -9,6 +9,9 @@ class MyTextFormField extends StatefulWidget {
     required this.label,
     this.prefix,
     this.keyboardType,
+    this.validator,
+    this.onChanged,
+    this.onFieldSubmitted,
   });
 
   final String? initialValue;
@@ -17,6 +20,9 @@ class MyTextFormField extends StatefulWidget {
   final String label;
   final Widget? prefix;
   final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
+  final void Function(String value)? onChanged;
+  final void Function()? onFieldSubmitted;
 
   @override
   State<MyTextFormField> createState() => _MyTextFormFieldState();
@@ -41,9 +47,9 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
           keyboardType: widget.keyboardType,
           obscureText: widget.isObscure ? _isInvisible : false,
           textInputAction: TextInputAction.next,
-          onFieldSubmitted: (a) {
-            print('SUBMIT');
-          },
+          validator: widget.validator,
+          onChanged: widget.onChanged,
+          onFieldSubmitted: (a) => widget.onFieldSubmitted!(),
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             labelText: widget.label,
