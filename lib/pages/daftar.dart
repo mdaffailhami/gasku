@@ -28,9 +28,9 @@ class _MyDaftarPageState extends State<MyDaftarPage> {
     showLoadingScreen(context);
 
     await User.add(
-      User.autoID(
-        nama: _nama,
+      User(
         nik: _nik,
+        nama: _nama,
         kk: _kk,
         noTelepon: _noTelepon,
         kataSandi: _kataSandi,

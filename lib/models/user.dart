@@ -1,56 +1,34 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class User {
-  final String id;
-  final String nama;
   final String nik;
+  final String nama;
   final String kk;
   final String noTelepon;
   final String kataSandi;
 
   User({
-    required this.id,
-    required this.nama,
     required this.nik,
+    required this.nama,
     required this.kk,
     required this.noTelepon,
     required this.kataSandi,
   });
 
-  factory User.autoID({
-    required String nama,
-    required String nik,
-    required String kk,
-    required String noTelepon,
-    required String kataSandi,
-  }) {
-    final id = DateTime.now().millisecondsSinceEpoch.toString();
-
-    return User(
-      id: id,
-      nama: nama,
-      nik: nik,
-      kk: kk,
-      noTelepon: noTelepon,
-      kataSandi: kataSandi,
-    );
-  }
-
   User copyWith({
-    String? id,
-    String? nama,
     String? nik,
+    String? nama,
     String? kk,
     String? noTelepon,
     String? kataSandi,
   }) {
     return User(
-      id: id ?? this.id,
-      nama: nama ?? this.nama,
       nik: nik ?? this.nik,
+      nama: nama ?? this.nama,
       kk: kk ?? this.kk,
       noTelepon: noTelepon ?? this.noTelepon,
       kataSandi: kataSandi ?? this.kataSandi,
@@ -62,12 +40,12 @@ class User {
     final newUser = user.copyWith(kataSandi: hashedPassword);
 
     await FirebaseDatabase.instance
-        .ref('users/${newUser.id}')
+        .ref('users/${newUser.nik}')
         .set(newUser.toMap());
   }
 
-  static Future<User?> get(String userID) async {
-    final snapshot = await FirebaseDatabase.instance.ref('users/$userID').get();
+  static Future<User?> get(String nik) async {
+    final snapshot = await FirebaseDatabase.instance.ref('users/$nik').get();
 
     if (!snapshot.exists) {
       print('User tidak ditemukan!');
@@ -78,20 +56,18 @@ class User {
     return User.fromMap(snapshot.value as Map<String, dynamic>);
   }
 
-  static Future<void> resetKataSandi(
-      String userID, String kataSandiBaru) async {
+  static Future<void> resetKataSandi(String nik, String kataSandiBaru) async {
     final hashedPassword = sha1.convert(utf8.encode(kataSandiBaru)).toString();
 
     await FirebaseDatabase.instance
-        .ref('users/${userID}')
+        .ref('users/$nik')
         .update({'kataSandi': hashedPassword});
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'nama': nama,
       'nik': nik,
+      'nama': nama,
       'kk': kk,
       'noTelepon': noTelepon,
       'kataSandi': kataSandi,
@@ -100,9 +76,8 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['id'] as String,
-      nama: map['nama'] as String,
       nik: map['nik'] as String,
+      nama: map['nama'] as String,
       kk: map['kk'] as String,
       noTelepon: map['noTelepon'] as String,
       kataSandi: map['kataSandi'] as String,
@@ -116,16 +91,15 @@ class User {
 
   @override
   String toString() {
-    return 'User(id: $id, nama: $nama, nik: $nik, kk: $kk, noTelepon: $noTelepon, kataSandi: $kataSandi)';
+    return 'User(nik: $nik, nama: $nama, kk: $kk, noTelepon: $noTelepon, kataSandi: $kataSandi)';
   }
 
   @override
   bool operator ==(covariant User other) {
     if (identical(this, other)) return true;
 
-    return other.id == id &&
+    return other.nik == nik &&
         other.nama == nama &&
-        other.nik == nik &&
         other.kk == kk &&
         other.noTelepon == noTelepon &&
         other.kataSandi == kataSandi;
@@ -133,9 +107,8 @@ class User {
 
   @override
   int get hashCode {
-    return id.hashCode ^
+    return nik.hashCode ^
         nama.hashCode ^
-        nik.hashCode ^
         kk.hashCode ^
         noTelepon.hashCode ^
         kataSandi.hashCode;
