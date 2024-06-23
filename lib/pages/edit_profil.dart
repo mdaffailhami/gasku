@@ -95,10 +95,9 @@ class _MyEditProfilPageState extends State<MyEditProfilPage> {
                       initialValue: 'Muhammad Daffa Ilhami',
                     ),
                     MyTextFormField(
-                      prefix: Text('+62'),
-                      keyboardType: TextInputType.number,
-                      title: 'Nomor Telepon',
-                      label: 'Masukkan Nomor Telepon Anda',
+                      keyboardType: TextInputType.emailAddress,
+                      title: 'Alamat Email',
+                      label: 'Masukkan Alamat Email Anda',
                       initialValue: '818374374',
                     ),
                   ],

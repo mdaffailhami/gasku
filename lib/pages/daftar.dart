@@ -19,7 +19,7 @@ class _MyDaftarPageState extends State<MyDaftarPage> {
   String _nama = '';
   String _nik = '';
   String _kk = '';
-  String _noTelepon = '';
+  String _email = '';
   String _kataSandi = '';
 
   Future<void> onSubmit() async {
@@ -33,7 +33,7 @@ class _MyDaftarPageState extends State<MyDaftarPage> {
           nik: _nik,
           nama: _nama,
           kk: _kk,
-          noTelepon: _noTelepon,
+          email: _email,
           kataSandi: _kataSandi,
         ),
       );
@@ -147,17 +147,16 @@ class _MyDaftarPageState extends State<MyDaftarPage> {
                       },
                     ),
                     MyTextFormField(
-                      prefix: Text('+62'),
-                      keyboardType: TextInputType.number,
-                      title: 'Nomor Telepon',
-                      label: 'Masukkan Nomor Telepon Anda',
-                      onChanged: (value) => _noTelepon = value,
+                      keyboardType: TextInputType.emailAddress,
+                      title: 'Alamat Email',
+                      label: 'Masukkan Alamat Email Anda',
+                      onChanged: (value) => _email = value,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Nomor Telepon tidak boleh kosong';
+                          return 'Alamat Email tidak boleh kosong';
                         }
                         if (value.length > 20) {
-                          return 'Nomor Telepon maksimal 20 karakter';
+                          return 'Alamat Email maksimal 20 karakter';
                         }
                         return null;
                       },

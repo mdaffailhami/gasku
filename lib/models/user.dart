@@ -8,14 +8,14 @@ class User {
   final String nik;
   final String nama;
   final String kk;
-  final String noTelepon;
+  final String email;
   final String kataSandi;
 
   User({
     required this.nik,
     required this.nama,
     required this.kk,
-    required this.noTelepon,
+    required this.email,
     required this.kataSandi,
   });
 
@@ -23,14 +23,14 @@ class User {
     String? nik,
     String? nama,
     String? kk,
-    String? noTelepon,
+    String? email,
     String? kataSandi,
   }) {
     return User(
       nik: nik ?? this.nik,
       nama: nama ?? this.nama,
       kk: kk ?? this.kk,
-      noTelepon: noTelepon ?? this.noTelepon,
+      email: email ?? this.email,
       kataSandi: kataSandi ?? this.kataSandi,
     );
   }
@@ -67,7 +67,7 @@ class User {
       'nik': nik,
       'nama': nama,
       'kk': kk,
-      'noTelepon': noTelepon,
+      'email': email,
       'kataSandi': kataSandi,
     };
   }
@@ -77,7 +77,7 @@ class User {
       nik: map['nik'] as String,
       nama: map['nama'] as String,
       kk: map['kk'] as String,
-      noTelepon: map['noTelepon'] as String,
+      email: map['email'] as String,
       kataSandi: map['kataSandi'] as String,
     );
   }
@@ -89,7 +89,7 @@ class User {
 
   @override
   String toString() {
-    return 'User(nik: $nik, nama: $nama, kk: $kk, noTelepon: $noTelepon, kataSandi: $kataSandi)';
+    return 'User(nik: $nik, nama: $nama, kk: $kk, email: $email, kataSandi: $kataSandi)';
   }
 
   @override
@@ -99,7 +99,7 @@ class User {
     return other.nik == nik &&
         other.nama == nama &&
         other.kk == kk &&
-        other.noTelepon == noTelepon &&
+        other.email == email &&
         other.kataSandi == kataSandi;
   }
 
@@ -108,7 +108,7 @@ class User {
     return nik.hashCode ^
         nama.hashCode ^
         kk.hashCode ^
-        noTelepon.hashCode ^
+        email.hashCode ^
         kataSandi.hashCode;
   }
 }
