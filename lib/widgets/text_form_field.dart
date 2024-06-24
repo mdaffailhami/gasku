@@ -12,6 +12,7 @@ class MyTextFormField extends StatefulWidget {
     this.validator,
     this.onChanged,
     this.onFieldSubmitted,
+    this.startPadding = true,
   });
 
   final String? initialValue;
@@ -23,6 +24,7 @@ class MyTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final void Function(String value)? onChanged;
   final void Function()? onFieldSubmitted;
+  final bool startPadding;
 
   @override
   State<MyTextFormField> createState() => _MyTextFormFieldState();
@@ -34,9 +36,10 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 23),
+        if (widget.startPadding) const SizedBox(height: 23),
         Text(
           widget.title,
           style: Theme.of(context).textTheme.labelLarge,

@@ -1,8 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gasku/cubits/user_masuk.dart';
+import 'package:gasku/cubits/pengguna_masuk.dart';
+import 'package:gasku/dialogs/ganti_kata_sandi.dart';
+import 'package:gasku/models/pengguna.dart';
 import 'package:gasku/pages/main.dart';
+import 'package:gasku/pages/verifikasi_otp.dart';
 import 'package:gasku/widgets/filled_button.dart';
 import 'package:gasku/widgets/text_form_field.dart';
 import 'package:gasku/pages/daftar.dart';
@@ -23,14 +26,14 @@ class _MyMasukPageState extends State<MyMasukPage> {
   Future<void> onSubmit(BuildContext context) async {
     try {
       await context
-          .read<UserMasukCubit>()
+          .read<PenggunaMasukCubit>()
           .masuk(nik: _nik, kataSandi: _kataSandi);
 
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (_) => MyMainPage()));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e as String),
+        content: Text(e.toString()),
         backgroundColor: Theme.of(context).colorScheme.primary,
         action: SnackBarAction(
           label: 'Tutup',
@@ -38,6 +41,15 @@ class _MyMasukPageState extends State<MyMasukPage> {
         ),
       ));
     }
+  }
+
+  void onLupaKataSandiTapped(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return MyGantiKataSandiDialog();
+      },
+    );
   }
 
   @override
@@ -104,7 +116,7 @@ class _MyMasukPageState extends State<MyMasukPage> {
             Align(
               alignment: Alignment.centerRight,
               child: InkWell(
-                onTap: () {},
+                onTap: () => onLupaKataSandiTapped(context),
                 child: Text(
                   'Lupa Kata Sandi?',
                   textAlign: TextAlign.end,

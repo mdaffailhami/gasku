@@ -1,20 +1,17 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gasku/cubits/user_masuk.dart';
-import 'package:gasku/firebase_options.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:gasku/cubits/pengguna_masuk.dart';
 import 'package:gasku/pages/main.dart';
 import 'package:gasku/pages/masuk.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await dotenv.load(fileName: ".env");
+
   runApp(
     BlocProvider(
-      create: (_) => UserMasukCubit(),
+      create: (_) => PenggunaMasukCubit(),
       child: const MyApp(),
     ),
   );

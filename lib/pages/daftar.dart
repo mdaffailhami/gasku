@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:gasku/models/user.dart';
+import 'package:gasku/models/pengguna.dart';
 import 'package:gasku/pages/masuk.dart';
 import 'package:gasku/utils/show_loading_screen.dart';
 import 'package:gasku/widgets/filled_button.dart';
@@ -28,8 +28,8 @@ class _MyDaftarPageState extends State<MyDaftarPage> {
     showLoadingScreen(context);
 
     try {
-      await User.add(
-        User(
+      await Pengguna.add(
+        Pengguna(
           nik: _nik,
           nama: _nama,
           kk: _kk,
@@ -53,19 +53,16 @@ class _MyDaftarPageState extends State<MyDaftarPage> {
         ),
       ));
     } catch (e) {
-      if (e == 'NIK sudah terdaftar') {
-        Navigator.pop(context);
+      Navigator.pop(context);
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(e as String),
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          action: SnackBarAction(
-            label: 'Tutup',
-            onPressed: () =>
-                ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-          ),
-        ));
-      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        action: SnackBarAction(
+          label: 'Tutup',
+          onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+        ),
+      ));
     }
   }
 
