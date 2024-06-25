@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class ETiket extends StatelessWidget {
-  const ETiket({super.key});
+class ETiketListTile extends StatelessWidget {
+  const ETiketListTile({super.key});
 
   @override
   Widget build(BuildContext context) {
