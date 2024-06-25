@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gasku/models/pengguna.dart';
+import 'package:gasku/pages/ganti_kata_sandi.dart';
 import 'package:gasku/pages/verifikasi_otp.dart';
+import 'package:gasku/utils/show_loading_screen.dart';
 import 'package:gasku/widgets/text_form_field.dart';
 
 class MyGantiKataSandiDialog extends StatefulWidget {
@@ -11,26 +13,41 @@ class MyGantiKataSandiDialog extends StatefulWidget {
 }
 
 class _MyGantiKataSandiDialogState extends State<MyGantiKataSandiDialog> {
+  final _formKey = GlobalKey<FormState>();
+
   String _nik = '';
 
   Future onSubmit() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    showLoadingScreen(context);
+
     try {
       final Pengguna pengguna = await Pengguna.get(_nik);
-
-      print(pengguna);
 
       String kodeVerifikasi =
           await Pengguna.kirimEmailVerifikasi(pengguna.email);
 
-      Navigator.of(context).push(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) => MyVerifikasiOTPPage(
-            email: pengguna.email,
+            pengguna: pengguna,
             otp: kodeVerifikasi,
+            onVerified: (Pengguna pengguna) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      MyGantiKataSandiPage(pengguna: pengguna),
+                ),
+              );
+            },
           ),
         ),
       );
     } catch (e) {
+      Navigator.pop(context);
+
       showDialog(
         context: context,
         builder: (context) {
@@ -62,22 +79,25 @@ class _MyGantiKataSandiDialogState extends State<MyGantiKataSandiDialog> {
           child: Text('Kirim'),
         ),
       ],
-      content: MyTextFormField(
-        startPadding: false,
-        title: 'Nomor Induk Kependudukan (NIK)',
-        label: 'Masukkan NIK Anda',
-        keyboardType: TextInputType.number,
-        onChanged: (value) => _nik = value,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'NIK tidak boleh kosong';
-          }
-          if (value.length != 16) {
-            return 'NIK harus 16 digit';
-          }
-          return null;
-        },
-        onFieldSubmitted: () => onSubmit(),
+      content: Form(
+        key: _formKey,
+        child: MyTextFormField(
+          startPadding: false,
+          title: 'Nomor Induk Kependudukan (NIK)',
+          label: 'Masukkan NIK Anda',
+          keyboardType: TextInputType.number,
+          onChanged: (value) => _nik = value,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'NIK tidak boleh kosong';
+            }
+            if (value.length != 16) {
+              return 'NIK harus 16 digit';
+            }
+            return null;
+          },
+          onFieldSubmitted: () => onSubmit(),
+        ),
       ),
     );
   }

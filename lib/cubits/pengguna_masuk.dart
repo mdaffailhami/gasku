@@ -15,4 +15,6 @@ class PenggunaMasukCubit extends Cubit<Pengguna?> {
 
     emit(pengguna);
   }
+
+  void keluar() => emit(null);
 }

@@ -79,18 +79,29 @@ class Pengguna {
     ))
         .body);
 
-    if (response['status'] == 'failed') throw response['message'];
+    if (response['status'] == 'failed') {
+      if (response['code'] == 553) throw 'Email tidak valid';
+
+      return response['message'];
+    }
 
     return response['kode_verifikasi'];
   }
 
-  // static Future<void> gantiKataSandi(String nik, String kataSandiBaru) async {
-  // final hashedPassword = sha1.convert(utf8.encode(kataSandiBaru)).toString();
+  static Future<void> gantiKataSandi(String nik, String kataSandiBaru) async {
+    final url = '${dotenv.env['SERVER_URL']}/ganti-kata-sandi/$nik';
 
-  // await FirebaseDatabase.instance
-  //     .ref('penggunas/$nik')
-  //     .update({'kataSandi': hashedPassword});
-  // }
+    final Map<String, dynamic> response = json.decode((await http.patch(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode({"kata_sandi": kataSandiBaru}),
+    ))
+        .body);
+
+    if (response['status'] == 'failed') throw response['message'];
+  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

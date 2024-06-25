@@ -5,11 +5,14 @@ void showLoadingScreen(BuildContext context) {
     context: context,
     barrierDismissible: false,
     builder: (context) {
-      return Container(
-        color: Colors.black26,
-        child: Center(
-          child: CircularProgressIndicator(
-            color: Theme.of(context).colorScheme.primary,
+      return PopScope(
+        canPop: false,
+        child: Container(
+          color: Colors.black26,
+          child: Center(
+            child: CircularProgressIndicator(
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
         ),
       );

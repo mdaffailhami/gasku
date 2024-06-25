@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gasku/models/pengguna.dart';
 import 'package:gasku/pages/masuk.dart';
+import 'package:gasku/pages/verifikasi_otp.dart';
 import 'package:gasku/utils/show_loading_screen.dart';
 import 'package:gasku/widgets/filled_button.dart';
 import 'package:gasku/widgets/text_form_field.dart';
@@ -28,41 +29,77 @@ class _MyDaftarPageState extends State<MyDaftarPage> {
     showLoadingScreen(context);
 
     try {
-      await Pengguna.add(
-        Pengguna(
-          nik: _nik,
-          nama: _nama,
-          kk: _kk,
-          email: _email,
-          kataSandi: _kataSandi,
-        ),
+      final pengguna = Pengguna(
+        nik: _nik,
+        nama: _nama,
+        kk: _kk,
+        email: _email,
+        kataSandi: _kataSandi,
       );
 
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (_) => MyMasukPage()),
-        (_) => false,
-      );
+      String kodeVerifikasi =
+          await Pengguna.kirimEmailVerifikasi(pengguna.email);
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Akun berhasil didaftarkan'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        action: SnackBarAction(
-          label: 'Tutup',
-          onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => MyVerifikasiOTPPage(
+            pengguna: pengguna,
+            otp: kodeVerifikasi,
+            onVerified: (Pengguna pengguna) async {
+              showLoadingScreen(context);
+
+              try {
+                await Pengguna.add(pengguna);
+
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Buat akun berhasil'),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  action: SnackBarAction(
+                    label: 'Tutup',
+                    onPressed: () =>
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+                  ),
+                ));
+
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (_) => MyMasukPage()),
+                  (_) => false,
+                );
+              } catch (e) {
+                Navigator.pop(context);
+
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(e.toString()),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  action: SnackBarAction(
+                    label: 'Tutup',
+                    onPressed: () =>
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+                  ),
+                ));
+              }
+            },
+          ),
         ),
-      ));
+      );
     } catch (e) {
       Navigator.pop(context);
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        action: SnackBarAction(
-          label: 'Tutup',
-          onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-        ),
-      ));
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Gagal mengirim kode verifikasi'),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('Tutup'))
+            ],
+            content: Text(e.toString()),
+          );
+        },
+      );
     }
   }
 
@@ -152,9 +189,19 @@ class _MyDaftarPageState extends State<MyDaftarPage> {
                         if (value == null || value.isEmpty) {
                           return 'Alamat Email tidak boleh kosong';
                         }
-                        if (value.length > 20) {
-                          return 'Alamat Email maksimal 20 karakter';
+
+                        if (value.length > 40) {
+                          return 'Alamat Email maksimal 40 karakter';
                         }
+
+                        final bool emailValid = RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value);
+
+                        if (!emailValid) {
+                          return 'Alamat Email tidak valid';
+                        }
+
                         return null;
                       },
                     ),

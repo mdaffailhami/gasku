@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:gasku/models/pengguna.dart';
 import 'package:gasku/pages/ganti_kata_sandi.dart';
 
 class MyVerifikasiOTPPage extends StatefulWidget {
   const MyVerifikasiOTPPage({
     super.key,
-    required this.email,
+    required this.pengguna,
     required this.otp,
+    required this.onVerified,
   });
 
-  final String email;
+  final Pengguna pengguna;
   final String otp;
+  final void Function(Pengguna pengguna) onVerified;
 
   @override
   State<MyVerifikasiOTPPage> createState() => _MyVerifikasiOTPPageState();
@@ -19,7 +22,7 @@ class MyVerifikasiOTPPage extends StatefulWidget {
 class _MyVerifikasiOTPPageState extends State<MyVerifikasiOTPPage> {
   String _otp = '';
 
-  Future onSubmit() async {
+  void onSubmit() {
     if (_otp != widget.otp) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Kode verifikasi salah'),
@@ -30,12 +33,7 @@ class _MyVerifikasiOTPPageState extends State<MyVerifikasiOTPPage> {
         ),
       ));
     } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MyGantiKataSandiPage(email: widget.email),
-        ),
-      );
+      widget.onVerified(widget.pengguna);
     }
   }
 
@@ -78,7 +76,7 @@ class _MyVerifikasiOTPPageState extends State<MyVerifikasiOTPPage> {
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
             Text(
-              'Kami telah mengirimkan email verifikasi ke alamat email ${widget.email}',
+              'Kami telah mengirimkan email verifikasi ke alamat email ${widget.pengguna.email}',
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 60),

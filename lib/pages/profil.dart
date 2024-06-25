@@ -1,12 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gasku/cubits/pengguna_masuk.dart';
 import 'package:gasku/pages/edit_profil.dart';
 import 'package:gasku/pages/faq.dart';
 import 'package:gasku/pages/kontak_kami.dart';
+import 'package:gasku/pages/masuk.dart';
 import 'package:gasku/widgets/divider.dart';
 import 'package:gasku/widgets/list_tile_button.dart';
 
 class MyProfilPage extends StatelessWidget {
   const MyProfilPage({super.key});
+
+  Future<void> onKeluarButtonPressed(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Keluar'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Batal'),
+            ),
+            TextButton(
+              onPressed: () {
+                context.read<PenggunaMasukCubit>().keluar();
+
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (_) => MyMasukPage()),
+                  (_) => false,
+                );
+              },
+              child: Text('Keluar'),
+            ),
+          ],
+          content: Text('Apakah kamu yakin ingin keluar?'),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +241,7 @@ class MyProfilPage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: OutlinedButton.icon(
-                onPressed: () {},
+                onPressed: () => onKeluarButtonPressed(context),
                 style: OutlinedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 14),
                   side: BorderSide(

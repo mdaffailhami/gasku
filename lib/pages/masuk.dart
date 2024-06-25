@@ -6,6 +6,7 @@ import 'package:gasku/dialogs/ganti_kata_sandi.dart';
 import 'package:gasku/models/pengguna.dart';
 import 'package:gasku/pages/main.dart';
 import 'package:gasku/pages/verifikasi_otp.dart';
+import 'package:gasku/utils/show_loading_screen.dart';
 import 'package:gasku/widgets/filled_button.dart';
 import 'package:gasku/widgets/text_form_field.dart';
 import 'package:gasku/pages/daftar.dart';
@@ -24,14 +25,23 @@ class _MyMasukPageState extends State<MyMasukPage> {
   String _kataSandi = '';
 
   Future<void> onSubmit(BuildContext context) async {
+    if (!_formKey.currentState!.validate()) return;
+
+    showLoadingScreen(context);
+
     try {
       await context
           .read<PenggunaMasukCubit>()
           .masuk(nik: _nik, kataSandi: _kataSandi);
 
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => MyMainPage()));
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => MyMainPage()),
+        (_) => false,
+      );
     } catch (e) {
+      Navigator.pop(context);
+
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
         backgroundColor: Theme.of(context).colorScheme.primary,
