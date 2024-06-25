@@ -9,6 +9,7 @@ class Pengguna {
   final String kk;
   final String email;
   final String kataSandi;
+  final String? foto;
   final List riwayatETiket;
 
   static final url = dotenv.env['SERVER_URL']! + '/pengguna';
@@ -19,6 +20,7 @@ class Pengguna {
     required this.kk,
     required this.email,
     required this.kataSandi,
+    this.foto,
     List? riwayatETiket,
   }) : riwayatETiket = riwayatETiket ?? [];
 
@@ -28,6 +30,7 @@ class Pengguna {
     String? kk,
     String? email,
     String? kataSandi,
+    String? foto,
     List? riwayatETiket,
   }) {
     return Pengguna(
@@ -36,8 +39,23 @@ class Pengguna {
       kk: kk ?? this.kk,
       email: email ?? this.email,
       kataSandi: kataSandi ?? this.kataSandi,
+      foto: foto ?? this.foto,
       riwayatETiket: riwayatETiket ?? this.riwayatETiket,
     );
+  }
+
+  static Future<Pengguna> get(String nik) async {
+    final Map<String, dynamic> response = json.decode((await http.get(
+      Uri.parse(url + '/' + nik),
+      headers: <String, String>{
+        'Accept': 'application/json; charset=UTF-8',
+      },
+    ))
+        .body);
+
+    if (response['status'] == 'failed') throw response['message'];
+
+    return Pengguna.fromMap(response['pengguna']);
   }
 
   static Future<void> add(Pengguna pengguna) async {
@@ -53,18 +71,17 @@ class Pengguna {
     if (response['status'] == 'failed') throw response['message'];
   }
 
-  static Future<Pengguna> get(String nik) async {
-    final Map<String, dynamic> response = json.decode((await http.get(
+  static Future<void> edit(String nik, Pengguna pengguna) async {
+    final Map<String, dynamic> response = json.decode((await http.put(
       Uri.parse(url + '/' + nik),
       headers: <String, String>{
-        'Accept': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json; charset=UTF-8',
       },
+      body: pengguna.toJson(),
     ))
         .body);
 
     if (response['status'] == 'failed') throw response['message'];
-
-    return Pengguna.fromMap(response['pengguna']);
   }
 
   static Future<String> kirimEmailVerifikasi(String emailPenerima) async {
@@ -110,6 +127,7 @@ class Pengguna {
       'kk': kk,
       'email': email,
       'kata_sandi': kataSandi,
+      'foto': foto,
       'riwayat_e_tiket': riwayatETiket,
     };
   }
@@ -121,6 +139,7 @@ class Pengguna {
       kk: map['kk'] as String,
       email: map['email'] as String,
       kataSandi: map['kata_sandi'] as String,
+      foto: map['foto'] as String?,
       riwayatETiket: map['riwayat_e_tiket'] as List,
     );
   }
@@ -132,7 +151,7 @@ class Pengguna {
 
   @override
   String toString() {
-    return 'Pengguna(nik: $nik, nama: $nama, kk: $kk, email: $email, kataSandi: $kataSandi, riwayatETiket: $riwayatETiket)';
+    return 'Pengguna(nik: $nik, nama: $nama, kk: $kk, email: $email, kataSandi: $kataSandi, foto: $foto, riwayatETiket: $riwayatETiket)';
   }
 
   @override
@@ -144,6 +163,7 @@ class Pengguna {
         other.kk == kk &&
         other.email == email &&
         other.kataSandi == kataSandi &&
+        other.foto == foto &&
         other.riwayatETiket == riwayatETiket;
   }
 
@@ -154,6 +174,7 @@ class Pengguna {
         kk.hashCode ^
         email.hashCode ^
         kataSandi.hashCode ^
+        foto.hashCode ^
         riwayatETiket.hashCode;
   }
 }

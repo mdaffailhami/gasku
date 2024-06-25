@@ -16,5 +16,11 @@ class PenggunaMasukCubit extends Cubit<Pengguna?> {
     emit(pengguna);
   }
 
+  Future<void> edit(Pengguna pengguna) async {
+    await Pengguna.edit(pengguna.nik, pengguna);
+
+    emit(pengguna);
+  }
+
   void keluar() => emit(null);
 }

@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gasku/cubits/pengguna_masuk.dart';
+import 'package:gasku/models/pengguna.dart';
 import 'package:gasku/pages/edit_profil.dart';
 import 'package:gasku/pages/faq.dart';
 import 'package:gasku/pages/kontak_kami.dart';
@@ -58,91 +61,108 @@ class MyProfilPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CircleAvatar(
-                          foregroundImage: NetworkImage(
-                            'https://avatars.githubusercontent.com/u/74972129?v=4',
-                          ),
-                          radius: 30,
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Muhammad Daffa Ilhami',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.tag,
-                                    size: 20,
-                                    color:
-                                        Theme.of(context).colorScheme.outline,
+                  BlocBuilder<PenggunaMasukCubit, Pengguna?>(
+                    builder: (context, pengguna) {
+                      if (pengguna == null) return SizedBox.shrink();
+
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 40),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            pengguna.foto == null
+                                ? CircleAvatar(
+                                    radius: 30,
+                                    foregroundImage:
+                                        AssetImage('assets/default_pfp.jpg'),
+                                  )
+                                : CircleAvatar(
+                                    radius: 30,
+                                    foregroundImage: MemoryImage(
+                                        base64Decode(pengguna.foto!)),
                                   ),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                                   Text(
-                                    '612896192837',
+                                    pengguna.nama,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .labelLarge
-                                        ?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .outline,
-                                        ),
+                                        .titleSmall
+                                        ?.copyWith(fontWeight: FontWeight.bold),
                                   ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.tag,
+                                        size: 20,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .outline,
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          pengguna.nik,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge
+                                              ?.copyWith(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .outline,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.email_outlined,
+                                        size: 20,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .outline,
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          pengguna.email,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge
+                                              ?.copyWith(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .outline,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.call,
-                                    size: 20,
-                                    color:
-                                        Theme.of(context).colorScheme.outline,
-                                  ),
-                                  Text(
-                                    '+62 123456789',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge
-                                        ?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .outline,
-                                        ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const MyEditProfilPage(),
                             ),
-                          ),
-                          icon: Icon(Icons.edit_square, size: 28),
-                        )
-                      ],
-                    ),
+                            IconButton(
+                              onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => MyEditProfilPage(),
+                                ),
+                              ),
+                              icon: Icon(Icons.edit_square, size: 28),
+                            )
+                          ],
+                        ),
+                      );
+                    },
                   ),
                   Container(
                     decoration: BoxDecoration(
