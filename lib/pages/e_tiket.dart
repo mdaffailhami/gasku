@@ -29,7 +29,7 @@ class MyETiketPage extends StatelessWidget {
 
         final DateTime expirationDate = monday.add(Duration(days: 6));
         final String formattedExpirationDate =
-            DateFormat('dd-MM-yyyy').format(expirationDate).toString();
+            DateFormat('dd/MM/yyyy').format(expirationDate).toString();
 
         final String eTiketUrl =
             '${dotenv.env['SERVER_URL']}/konfirmasi-e-tiket/${state.nik}/${sha1.convert(utf8.encode('${state.nik}($formattedMonday)')).toString()}';
