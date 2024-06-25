@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gasku/cubits/pengguna_masuk.dart';
+import 'package:gasku/models/pengguna.dart';
 import 'package:gasku/pages/beranda.dart';
 import 'package:gasku/pages/e_tiket.dart';
 import 'package:gasku/pages/profil.dart';
@@ -30,31 +33,39 @@ class _MyMainPageState extends State<MyMainPage> {
         elevation: 5,
         shadowColor: Colors.black.withOpacity(0.4),
         actions: [
-          Container(
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.4,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Muhammad Daffa Ilhami',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+          BlocBuilder<PenggunaMasukCubit, Pengguna?>(
+            builder: (context, state) {
+              if (state == null) return SizedBox.shrink();
+
+              return Container(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        state.nama,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                      ),
+                      Text(
+                        state.nik,
+                        style:
+                            Theme.of(context).textTheme.labelMedium?.copyWith(
+                                  color: Theme.of(context).colorScheme.outline,
+                                ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    '612896192837',
-                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                  ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           ),
           SizedBox(width: 10),
         ],
