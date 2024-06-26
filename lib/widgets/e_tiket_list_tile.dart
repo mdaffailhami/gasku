@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:gasku/models/e_tiket.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class ETiketListTile extends StatelessWidget {
-  const ETiketListTile({super.key});
+class MyETiketListTile extends StatelessWidget {
+  const MyETiketListTile(
+      {super.key, required this.eTiket, required this.nikPemilik});
+
+  final ETiket eTiket;
+  final String nikPemilik;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +17,7 @@ class ETiketListTile extends StatelessWidget {
       children: [
         SizedBox(height: 16),
         Text(
-          '08 Juni',
+          DateFormat('dd-MM-yyyy').format(eTiket.tanggal),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -56,7 +62,7 @@ class ETiketListTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       QrImageView(
-                        data: '1234567890',
+                        data: eTiket.generateUrl(nikPemilik),
                         version: QrVersions.auto,
                         size: 80,
                         backgroundColor: Colors.white,
@@ -72,7 +78,7 @@ class ETiketListTile extends StatelessWidget {
                                 ?.copyWith(color: Colors.white),
                           ),
                           Text(
-                            'LPG-2024APR02',
+                            eTiket.nomor,
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -81,7 +87,7 @@ class ETiketListTile extends StatelessWidget {
                                     color: Colors.white),
                           ),
                           Text(
-                            'Berlaku sampai 25/04/2024',
+                            'Berlaku sampai ${eTiket.tanggalKedaluwarsa}',
                             style: TextStyle(color: Colors.white, fontSize: 8),
                           ),
                         ],

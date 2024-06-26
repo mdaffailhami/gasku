@@ -1,13 +1,10 @@
 import 'dart:convert';
 
-import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gasku/cubits/pengguna_masuk.dart';
 import 'package:gasku/models/e_tiket.dart';
 import 'package:gasku/models/pengguna.dart';
-import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class MyETiketPage extends StatelessWidget {
