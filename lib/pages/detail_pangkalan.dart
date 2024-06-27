@@ -1,12 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:gasku/components/ulasan_modal_bottom_sheet.dart';
-import 'package:gasku/widgets/comment.dart';
+import 'package:gasku/models/pangkalan.dart';
+import 'package:gasku/utils/format_rupiah.dart';
+import 'package:gasku/utils/open_link.dart';
+import 'package:gasku/widgets/comment_list_tile.dart';
 import 'package:gasku/widgets/divider.dart';
 import 'package:gasku/widgets/icon_filled_button.dart';
 
 class MyDetailPangkalanPage extends StatelessWidget {
-  const MyDetailPangkalanPage({super.key});
+  const MyDetailPangkalanPage({super.key, required this.pangkalan});
+
+  final Pangkalan pangkalan;
 
   @override
   Widget build(BuildContext context) {
@@ -39,24 +46,28 @@ class MyDetailPangkalanPage extends StatelessWidget {
             FlutterCarousel(
               options: CarouselOptions(
                 height: 210,
-                enableInfiniteScroll: true,
+                enableInfiniteScroll: false,
                 padEnds: false,
                 viewportFraction: 1,
                 autoPlay: true,
                 showIndicator: true,
                 slideIndicator: const CircularSlideIndicator(),
               ),
-              items: [1, 2, 3, 4, 5].map((i) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Image.network(
-                      'https://pict-a.sindonews.net/dyn/850/pena/news/2020/10/14/194/196024/pertamina-pecat-pangkalan-elpiji-gas-3-kg-terbukti-nakal-fuk.jpg',
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    );
-                  },
-                );
-              }).toList(),
+              items: pangkalan.foto.isEmpty
+                  ? [
+                      Image.asset(
+                        'assets/gasku_logo.png',
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      )
+                    ]
+                  : pangkalan.foto.map((foto) {
+                      return Image.memory(
+                        base64Decode(foto),
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      );
+                    }).toList(),
             ),
             const SizedBox(height: 12),
             Padding(
@@ -65,14 +76,14 @@ class MyDetailPangkalanPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Pangkalan LPG Rahmi',
+                    pangkalan.nama,
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    'Jl. Sultan Adam Komplek Mekar Sari Blok 24B, No.52',
+                    pangkalan.alamat,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.outline,
                     ),
@@ -86,7 +97,7 @@ class MyDetailPangkalanPage extends StatelessWidget {
                           ),
                       children: <TextSpan>[
                         TextSpan(
-                          text: '23.000',
+                          text: formatRupiah(pangkalan.harga),
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge
@@ -107,7 +118,23 @@ class MyDetailPangkalanPage extends StatelessWidget {
                           icon: Icons.message_outlined,
                           label: 'Chat',
                           color: Colors.green,
-                          onPressed: () {},
+                          onPressed: () {
+                            try {
+                              openLink('https://wa.me/62${pangkalan.telepon}');
+                            } catch (e) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(e.toString()),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                action: SnackBarAction(
+                                  label: 'Tutup',
+                                  onPressed: () => ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar(),
+                                ),
+                              ));
+                            }
+                          },
                         ),
                       ),
                       SizedBox(width: 6),
@@ -116,7 +143,23 @@ class MyDetailPangkalanPage extends StatelessWidget {
                           icon: Icons.pin_drop_outlined,
                           label: 'Maps',
                           color: Theme.of(context).colorScheme.primary,
-                          onPressed: () {},
+                          onPressed: () {
+                            try {
+                              openLink(pangkalan.gmap);
+                            } catch (e) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(e.toString()),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                action: SnackBarAction(
+                                  label: 'Tutup',
+                                  onPressed: () => ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar(),
+                                ),
+                              ));
+                            }
+                          },
                         ),
                       ),
                     ],
@@ -137,7 +180,7 @@ class MyDetailPangkalanPage extends StatelessWidget {
                       ),
                       SizedBox(width: 6),
                       Text(
-                        '+62 123456789',
+                        '+62 ${pangkalan.telepon}',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -155,7 +198,7 @@ class MyDetailPangkalanPage extends StatelessWidget {
                       ),
                       SizedBox(width: 6),
                       Text(
-                        'pangkalanrahmi332@gmail.com',
+                        pangkalan.email,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -176,8 +219,10 @@ class MyDetailPangkalanPage extends StatelessWidget {
                         children: [
                           Builder(
                             builder: (context) {
-                              final int totalStar = 4;
-                              final List<Icon> widgets = [];
+                              final double ratingAverage =
+                                  pangkalan.ratingAverage;
+                              final int totalStar = ratingAverage.floor();
+                              final List<Widget> widgets = [];
 
                               for (int i = 0; i < totalStar; i++) {
                                 widgets.add(
@@ -185,11 +230,25 @@ class MyDetailPangkalanPage extends StatelessWidget {
                                 );
                               }
 
+                              widgets.add(
+                                Text(
+                                  ratingAverage == 0
+                                      ? '0'
+                                      : ratingAverage.toString(),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic,
+                                    color:
+                                        Theme.of(context).colorScheme.outline,
+                                  ),
+                                ),
+                              );
+
                               return Row(children: widgets);
                             },
                           ),
                           Text(
-                            '(23 ulasan)',
+                            '(${pangkalan.ulasan.length} ulasan)',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium
@@ -218,11 +277,10 @@ class MyDetailPangkalanPage extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 14),
-                  MyComment(),
-                  MyDivider(height: 20),
-                  MyComment(),
-                  MyDivider(height: 20),
-                  MyComment(),
+                  for (var ulasan in pangkalan.ulasan) ...[
+                    MyCommentListTile(ulasan: ulasan),
+                    MyDivider(height: 20),
+                  ],
                 ],
               ),
             ),

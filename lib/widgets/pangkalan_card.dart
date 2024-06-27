@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:gasku/models/pangkalan.dart';
 import 'package:gasku/pages/detail_pangkalan.dart';
+import 'package:gasku/utils/format_rupiah.dart';
 
 class MyPangkalanCard extends StatelessWidget {
   const MyPangkalanCard({super.key, required this.pangkalan});
@@ -17,7 +20,7 @@ class MyPangkalanCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.0),
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const MyDetailPangkalanPage(),
+              builder: (context) => MyDetailPangkalanPage(pangkalan: pangkalan),
             ),
           ),
           child: Padding(
@@ -28,12 +31,19 @@ class MyPangkalanCard extends StatelessWidget {
                   flex: 2,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      pangkalan.urlGambar,
-                      height: double.infinity,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                    child: pangkalan.foto.isEmpty
+                        ? Image.asset(
+                            'assets/gasku_logo.png',
+                            height: double.infinity,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.memory(
+                            base64Decode(pangkalan.foto[0]),
+                            height: double.infinity,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
                 SizedBox(width: 10),
@@ -70,7 +80,7 @@ class MyPangkalanCard extends StatelessWidget {
                           ),
                           SizedBox(width: 3),
                           Text(
-                            pangkalan.rating.toString(),
+                            pangkalan.ratingAverage.toString(),
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium
@@ -93,9 +103,7 @@ class MyPangkalanCard extends StatelessWidget {
                               ),
                           children: <TextSpan>[
                             TextSpan(
-                              text: pangkalan.harga
-                                  .toString()
-                                  .replaceAll('Rp', ''),
+                              text: formatRupiah(pangkalan.harga),
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall

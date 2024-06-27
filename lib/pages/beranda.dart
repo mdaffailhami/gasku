@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:gasku/cubits/daftar_pangkalan.dart';
 import 'package:gasku/models/pangkalan.dart';
-import 'package:gasku/models/rupiah.dart';
 import 'package:gasku/widgets/filter_chip.dart';
 import 'package:gasku/widgets/pangkalan_card.dart';
 
@@ -19,6 +20,8 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<DaftarPangkalanCubit>().refresh();
+
     return Column(
       children: [
         FlutterCarousel(
@@ -108,46 +111,59 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
                     ),
                   ],
                 ),
-                Expanded(
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: [
-                      MyPangkalanCard(
-                        pangkalan: Pangkalan(
-                          nama: 'Pangkalan LPG Rahmi',
-                          alamat:
-                              'Jl. Sultan Adam Komplek Mekar Sari Blok 24B, No.52',
-                          urlGambar:
-                              'https://pict-a.sindonews.net/dyn/850/pena/news/2020/10/14/194/196024/pertamina-pecat-pangkalan-elpiji-gas-3-kg-terbukti-nakal-fuk.jpg',
-                          rating: 7.4,
-                          harga: Rupiah(23000),
-                        ),
+                BlocBuilder<DaftarPangkalanCubit, List<Pangkalan>>(
+                  builder: (context, state) {
+                    return Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: state.length,
+                        itemBuilder: (context, i) {
+                          return MyPangkalanCard(pangkalan: state[i]);
+                        },
                       ),
-                      MyPangkalanCard(
-                        pangkalan: Pangkalan(
-                          nama: 'Pangkalan H. Naim',
-                          alamat:
-                              'Jl. Banua Anyar Komp. 14 RT.10 RW.001 No.A98',
-                          urlGambar:
-                              'https://awsimages.detik.net.id/visual/2022/11/03/pangkalan-lpg-di-tangerang-selatan-2_169.jpeg?w=650',
-                          rating: 8.2,
-                          harga: Rupiah(25000),
-                        ),
-                      ),
-                      MyPangkalanCard(
-                        pangkalan: Pangkalan(
-                          nama: 'Pangkalan LPG Putra',
-                          alamat:
-                              'Jl. Bintara Komplek UWU Uwaw Blok 10A, No.35',
-                          urlGambar:
-                              'https://asset-2.tstatic.net/pontianak/foto/bank/images/cara-daftar-pangkalan-gas-lpg-3-kg-dan-cara-daftar-agen-gas-lpg-3-kg-login-kemitraanpertaminacom.jpg',
-                          rating: 7.4,
-                          harga: Rupiah(23000),
-                        ),
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
+                // Expanded(
+                //   child: ListView(
+                //     shrinkWrap: true,
+                //     children: [
+                //       MyPangkalanCard(
+                //         pangkalan: Pangkalan(
+                //           nama: 'Pangkalan LPG Rahmi',
+                //           alamat:
+                //               'Jl. Sultan Adam Komplek Mekar Sari Blok 24B, No.52',
+                //           urlGambar:
+                //               'https://pict-a.sindonews.net/dyn/850/pena/news/2020/10/14/194/196024/pertamina-pecat-pangkalan-elpiji-gas-3-kg-terbukti-nakal-fuk.jpg',
+                //           rating: 7.4,
+                //           harga: Rupiah(23000),
+                //         ),
+                //       ),
+                //       MyPangkalanCard(
+                //         pangkalan: Pangkalan(
+                //           nama: 'Pangkalan H. Naim',
+                //           alamat:
+                //               'Jl. Banua Anyar Komp. 14 RT.10 RW.001 No.A98',
+                //           urlGambar:
+                //               'https://awsimages.detik.net.id/visual/2022/11/03/pangkalan-lpg-di-tangerang-selatan-2_169.jpeg?w=650',
+                //           rating: 8.2,
+                //           harga: Rupiah(25000),
+                //         ),
+                //       ),
+                //       MyPangkalanCard(
+                //         pangkalan: Pangkalan(
+                //           nama: 'Pangkalan LPG Putra',
+                //           alamat:
+                //               'Jl. Bintara Komplek UWU Uwaw Blok 10A, No.35',
+                //           urlGambar:
+                //               'https://asset-2.tstatic.net/pontianak/foto/bank/images/cara-daftar-pangkalan-gas-lpg-3-kg-dan-cara-daftar-agen-gas-lpg-3-kg-login-kemitraanpertaminacom.jpg',
+                //           rating: 7.4,
+                //           harga: Rupiah(23000),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),

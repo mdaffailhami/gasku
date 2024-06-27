@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:gasku/cubits/daftar_pangkalan.dart';
 import 'package:gasku/cubits/pengguna_masuk.dart';
 import 'package:gasku/pages/main.dart';
 import 'package:gasku/pages/masuk.dart';
@@ -10,8 +11,11 @@ void main() async {
   await dotenv.load(fileName: ".env");
 
   runApp(
-    BlocProvider(
-      create: (_) => PenggunaMasukCubit(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => PenggunaMasukCubit()),
+        BlocProvider(create: (_) => DaftarPangkalanCubit()),
+      ],
       child: const MyApp(),
     ),
   );
