@@ -56,6 +56,9 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
             child: Column(
               children: [
                 TextField(
+                  onChanged: (value) {
+                    context.read<DaftarPangkalanCubit>().search(value);
+                  },
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(14),
                     enabledBorder: OutlineInputBorder(

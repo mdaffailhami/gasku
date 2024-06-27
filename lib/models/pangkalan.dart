@@ -61,9 +61,9 @@ class Pangkalan {
     );
   }
 
-  static Future<List<Pangkalan>> getAll() async {
+  static Future<List<Pangkalan>> get({String? search}) async {
     final Map<String, dynamic> response = json.decode((await http.get(
-      Uri.parse(url),
+      Uri.parse(search == null ? url : '$url?search=$search'),
       headers: <String, String>{
         'Accept': 'application/json; charset=UTF-8',
       },
