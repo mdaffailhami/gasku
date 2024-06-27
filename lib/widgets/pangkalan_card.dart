@@ -13,7 +13,7 @@ class MyPangkalanCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 160,
+      height: 162,
       child: Card(
         color: Theme.of(context).colorScheme.surface,
         child: InkWell(
@@ -70,7 +70,15 @@ class MyPangkalanCard extends StatelessWidget {
                                   color: Theme.of(context).colorScheme.outline,
                                 ),
                       ),
-                      SizedBox(height: 2),
+                      SizedBox(height: 3),
+                      Text(
+                        'Stok: 12',
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                            Theme.of(context).textTheme.labelMedium?.copyWith(
+                                  color: Theme.of(context).colorScheme.outline,
+                                ),
+                      ),
                       Row(
                         children: [
                           Icon(
@@ -90,7 +98,7 @@ class MyPangkalanCard extends StatelessWidget {
                           )
                         ],
                       ),
-                      SizedBox(height: 8),
+                      // SizedBox(height: 8),
                       RichText(
                         text: TextSpan(
                           text: 'Rp',
