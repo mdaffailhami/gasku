@@ -27,7 +27,7 @@ class _MyGantiKataSandiPageState extends State<MyGantiKataSandiPage> {
       await Pengguna.gantiKataSandi(widget.pengguna.nik, _kataSandi);
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Ganti password berhasil'),
+        content: const Text('Ganti password berhasil'),
         backgroundColor: Theme.of(context).colorScheme.primary,
         action: SnackBarAction(
           label: 'Tutup',
@@ -37,7 +37,7 @@ class _MyGantiKataSandiPageState extends State<MyGantiKataSandiPage> {
 
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (_) => MyMasukPage()),
+        MaterialPageRoute(builder: (_) => const MyMasukPage()),
         (_) => false,
       );
     } catch (e) {
@@ -92,11 +92,11 @@ class _MyGantiKataSandiPageState extends State<MyGantiKataSandiPage> {
                   .titleLarge
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
-            Text(
+            const Text(
               'Silahkan masukkan kata sandi baru yang anda inginkan, pastikan susah ditebak ya :)',
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             Form(
               key: _formKey,
               child: MyTextFormField(
@@ -117,12 +117,12 @@ class _MyGantiKataSandiPageState extends State<MyGantiKataSandiPage> {
                 },
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             SizedBox(
               width: double.infinity,
               child: FilledButton(
                 onPressed: () => onSubmit(),
-                child: Text('Simpan'),
+                child: const Text('Simpan'),
               ),
             )
           ],

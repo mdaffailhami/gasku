@@ -109,7 +109,7 @@ class MyDetailPangkalanPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -137,7 +137,7 @@ class MyDetailPangkalanPage extends StatelessWidget {
                           },
                         ),
                       ),
-                      SizedBox(width: 6),
+                      const SizedBox(width: 6),
                       Expanded(
                         child: MyIconFilledButton(
                           icon: Icons.pin_drop_outlined,
@@ -164,8 +164,8 @@ class MyDetailPangkalanPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 26, bottom: 6),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 26, bottom: 6),
                     child: Text(
                       'Kontak',
                       style: TextStyle(fontSize: 19),
@@ -178,7 +178,7 @@ class MyDetailPangkalanPage extends StatelessWidget {
                         size: 20,
                         color: Theme.of(context).colorScheme.outline,
                       ),
-                      SizedBox(width: 6),
+                      const SizedBox(width: 6),
                       Text(
                         '+62 ${pangkalan.telepon}',
                         maxLines: 1,
@@ -196,7 +196,7 @@ class MyDetailPangkalanPage extends StatelessWidget {
                         size: 20,
                         color: Theme.of(context).colorScheme.outline,
                       ),
-                      SizedBox(width: 6),
+                      const SizedBox(width: 6),
                       Text(
                         pangkalan.email,
                         maxLines: 1,
@@ -207,8 +207,8 @@ class MyDetailPangkalanPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 50),
-                  Text(
+                  const SizedBox(height: 50),
+                  const Text(
                     'Komentar',
                     style: TextStyle(fontSize: 19),
                   ),
@@ -259,7 +259,7 @@ class MyDetailPangkalanPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                       MyIconFilledButton(
                         icon: Icons.add,
                         label: 'Beri Ulasan',
@@ -269,17 +269,17 @@ class MyDetailPangkalanPage extends StatelessWidget {
                             context: context,
                             isScrollControlled: true,
                             builder: (context) {
-                              return MyUlasanModalBottomSheet();
+                              return const MyUlasanModalBottomSheet();
                             },
                           );
                         },
                       ),
                     ],
                   ),
-                  SizedBox(height: 14),
+                  const SizedBox(height: 14),
                   for (var ulasan in pangkalan.ulasan) ...[
                     MyCommentListTile(ulasan: ulasan),
-                    MyDivider(height: 20),
+                    const MyDivider(height: 20),
                   ],
                 ],
               ),

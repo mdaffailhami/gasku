@@ -19,10 +19,10 @@ class _MyUlasanModalBottomSheetState extends State<MyUlasanModalBottomSheet> {
       child: Container(
         // height: 300,
         width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 25),
+        padding: const EdgeInsets.symmetric(horizontal: 25),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(24),
             topRight: Radius.circular(24),
           ),
@@ -30,7 +30,7 @@ class _MyUlasanModalBottomSheetState extends State<MyUlasanModalBottomSheet> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Builder(
               builder: (context) {
                 final List<Widget> widgets = [];
@@ -58,7 +58,7 @@ class _MyUlasanModalBottomSheetState extends State<MyUlasanModalBottomSheet> {
                 );
               },
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             TextField(
               keyboardType: TextInputType.multiline,
               maxLines: 3,
@@ -72,18 +72,18 @@ class _MyUlasanModalBottomSheetState extends State<MyUlasanModalBottomSheet> {
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             SizedBox(
               width: double.infinity,
               child: FilledButton(
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   'Kirim Ulasan',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
           ],
         ),
       ),

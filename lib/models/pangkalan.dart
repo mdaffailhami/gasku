@@ -31,7 +31,7 @@ class Pangkalan {
     required this.ulasan,
   });
 
-  static final url = dotenv.env['SERVER_URL']! + '/pangkalan';
+  static final url = '${dotenv.env['SERVER_URL']}/pangkalan';
 
   Pangkalan copyWith({
     String? nama,

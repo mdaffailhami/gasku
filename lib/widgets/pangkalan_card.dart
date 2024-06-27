@@ -46,7 +46,7 @@ class MyPangkalanCard extends StatelessWidget {
                           ),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   flex: 3,
                   child: Column(
@@ -70,7 +70,7 @@ class MyPangkalanCard extends StatelessWidget {
                                   color: Theme.of(context).colorScheme.outline,
                                 ),
                       ),
-                      SizedBox(height: 3),
+                      const SizedBox(height: 3),
                       Text(
                         'Stok: ${pangkalan.stok}',
                         overflow: TextOverflow.ellipsis,
@@ -86,7 +86,7 @@ class MyPangkalanCard extends StatelessWidget {
                             color: Colors.yellow[700],
                             size: 20,
                           ),
-                          SizedBox(width: 3),
+                          const SizedBox(width: 3),
                           Text(
                             pangkalan.ratingAverage.toString(),
                             style: Theme.of(context)

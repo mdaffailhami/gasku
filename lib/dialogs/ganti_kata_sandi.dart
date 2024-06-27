@@ -52,11 +52,11 @@ class _MyGantiKataSandiDialogState extends State<MyGantiKataSandiDialog> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Gagal mengirim kode verifikasi'),
+            title: const Text('Gagal mengirim kode verifikasi'),
             actions: [
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Tutup'))
+                  child: const Text('Tutup'))
             ],
             content: Text(e.toString()),
           );
@@ -68,15 +68,15 @@ class _MyGantiKataSandiDialogState extends State<MyGantiKataSandiDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Ganti kata sandi'),
+      title: const Text('Ganti kata sandi'),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text('Batal'),
+          child: const Text('Batal'),
         ),
         TextButton(
           onPressed: () => onSubmit(),
-          child: Text('Kirim'),
+          child: const Text('Kirim'),
         ),
       ],
       content: Form(

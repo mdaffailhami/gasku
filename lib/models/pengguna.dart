@@ -12,7 +12,7 @@ class Pengguna {
   final String? foto;
   final List riwayatETiket;
 
-  static final url = dotenv.env['SERVER_URL']! + '/pengguna';
+  static final url = '${dotenv.env['SERVER_URL']}/pengguna';
 
   Pengguna({
     required this.nik,
@@ -46,7 +46,7 @@ class Pengguna {
 
   static Future<Pengguna> get(String nik) async {
     final Map<String, dynamic> response = json.decode((await http.get(
-      Uri.parse(url + '/' + nik),
+      Uri.parse('$url/$nik'),
       headers: <String, String>{
         'Accept': 'application/json; charset=UTF-8',
       },
@@ -73,7 +73,7 @@ class Pengguna {
 
   static Future<void> edit(String nik, Pengguna pengguna) async {
     final Map<String, dynamic> response = json.decode((await http.put(
-      Uri.parse(url + '/' + nik),
+      Uri.parse('$url/$nik'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

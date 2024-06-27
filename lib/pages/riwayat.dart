@@ -23,7 +23,7 @@ class _MyRiwayatPageState extends State<MyRiwayatPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<PenggunaMasukCubit, Pengguna?>(
       builder: (context, state) {
-        if (state == null) return SizedBox.shrink();
+        if (state == null) return const SizedBox.shrink();
 
         return Padding(
           padding: const EdgeInsets.fromLTRB(25, 15, 25, 0),
@@ -67,7 +67,7 @@ class _MyRiwayatPageState extends State<MyRiwayatPage> {
                   ),
                 ],
               ),
-              Divider(height: 10),
+              const Divider(height: 10),
               Builder(builder: (context) {
                 final reversedList = state.riwayatETiket.reversed.toList();
                 final eTiketList = <ETiket>[];

@@ -25,7 +25,7 @@ class MyFAQListTile extends StatelessWidget {
                 .titleLarge
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Text(
           subtitle,
           style: Theme.of(context)
@@ -34,7 +34,7 @@ class MyFAQListTile extends StatelessWidget {
               ?.copyWith(color: Theme.of(context).colorScheme.primary),
         ),
         Text(body),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
       ],
     );
   }

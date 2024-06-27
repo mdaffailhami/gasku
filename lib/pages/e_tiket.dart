@@ -14,7 +14,7 @@ class MyETiketPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PenggunaMasukCubit, Pengguna?>(
       builder: (context, state) {
-        if (state == null) return SizedBox.shrink();
+        if (state == null) return const SizedBox.shrink();
 
         final DateTime currentDateTime = DateTime.now();
         final DateTime senin = currentDateTime
@@ -26,7 +26,7 @@ class MyETiketPage extends StatelessWidget {
           child: Container(
             width: MediaQuery.of(context).size.width * 0.9,
             height: 620,
-            padding: EdgeInsets.fromLTRB(25, 0, 25, 25),
+            padding: const EdgeInsets.fromLTRB(25, 0, 25, 25),
             decoration: BoxDecoration(
               border: Border.all(
                 color: Theme.of(context).colorScheme.primary,
@@ -61,7 +61,7 @@ class MyETiketPage extends StatelessWidget {
                           radius: 37,
                           backgroundColor: Colors.white,
                           child: state.foto == null
-                              ? CircleAvatar(
+                              ? const CircleAvatar(
                                   radius: 35,
                                   foregroundImage:
                                       AssetImage('assets/default_pfp.jpg'),
@@ -87,7 +87,7 @@ class MyETiketPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.tag,
                               size: 20,
                               color: Colors.white,
@@ -105,14 +105,14 @@ class MyETiketPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         QrImageView(
                           data: eTiket.generateUrl(state.nik),
                           version: QrVersions.auto,
                           size: MediaQuery.of(context).size.width * 0.55,
                           backgroundColor: Colors.white,
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         Text(
                           'Nomor E-Tiket',
                           style: Theme.of(context)
@@ -131,7 +131,7 @@ class MyETiketPage extends StatelessWidget {
                         ),
                         Text(
                           'Berlaku sampai ${eTiket.tanggalKedaluwarsa}',
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ],
                     ),

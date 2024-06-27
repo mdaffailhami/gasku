@@ -21,7 +21,7 @@ class MyIconFilledButton extends StatelessWidget {
       icon: Icon(icon),
       label: Text(label),
       style: FilledButton.styleFrom(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         backgroundColor: color,

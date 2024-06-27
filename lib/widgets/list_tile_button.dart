@@ -15,7 +15,7 @@ class MyListTileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       leading: Icon(icon, color: Theme.of(context).colorScheme.outline),
       title: Text(
         text,

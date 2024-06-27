@@ -35,7 +35,6 @@ class _MyEditProfilPageState extends State<MyEditProfilPage> {
     _nama = _pengguna!.nama;
     _email = _pengguna.email;
     _foto = _pengguna.foto;
-    print(_foto);
   }
 
   Future<void> _onUploadPhotoButtonPressed() async {
@@ -57,8 +56,6 @@ class _MyEditProfilPageState extends State<MyEditProfilPage> {
     try {
       final pengguna =
           _pengguna!.copyWith(nama: _nama, email: _email, foto: _foto);
-
-      print(pengguna);
 
       await context.read<PenggunaMasukCubit>().edit(pengguna);
 

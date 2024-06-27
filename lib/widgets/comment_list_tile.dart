@@ -13,11 +13,11 @@ class MyCommentListTile extends StatelessWidget {
     return FutureBuilder(
       future: Pengguna.get(ulasan['nik']),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return SizedBox.shrink();
+        if (!snapshot.hasData) return const SizedBox.shrink();
 
         final pengguna = snapshot.data;
 
-        if (pengguna == null) return SizedBox.shrink();
+        if (pengguna == null) return const SizedBox.shrink();
 
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +25,7 @@ class MyCommentListTile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: pengguna.foto == null
-                  ? CircleAvatar(
+                  ? const CircleAvatar(
                       radius: 24,
                       foregroundImage: AssetImage('assets/default_pfp.jpg'),
                     )
@@ -35,7 +35,7 @@ class MyCommentListTile extends StatelessWidget {
                           MemoryImage(base64Decode(pengguna.foto!)),
                     ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

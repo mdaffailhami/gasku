@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:gasku/cubits/daftar_pangkalan.dart';
+import 'package:gasku/cubits/posisi_pengguna.dart';
 import 'package:gasku/models/pangkalan.dart';
+import 'package:gasku/utils/validasi_kedekatan_lokasi.dart';
 import 'package:gasku/widgets/filter_chip.dart';
 import 'package:gasku/widgets/pangkalan_card.dart';
+import 'package:geolocator/geolocator.dart';
 
 class MyBerandaPage extends StatefulWidget {
   const MyBerandaPage({super.key});
@@ -15,7 +18,7 @@ class MyBerandaPage extends StatefulWidget {
 
 class _MyBerandaPageState extends State<MyBerandaPage> {
   bool _isSemuaSelected = true;
-  bool _isTerbaikSelected = false;
+  bool _isTersediaSelected = false;
   bool _isTerdekatSelected = false;
 
   @override
@@ -49,20 +52,21 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
         const SizedBox(height: 12),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
                 TextField(
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(14),
+                    contentPadding: const EdgeInsets.all(14),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(100)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(100)),
                       borderSide: BorderSide(
                         width: 1.3,
                         color: Theme.of(context).colorScheme.outlineVariant,
                       ),
                     ),
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(100)),
                     ),
                     hintText: 'Cari Pangkalan',
@@ -72,7 +76,7 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -82,18 +86,18 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
                       onSelected: (_) {
                         setState(() {
                           _isSemuaSelected = true;
-                          _isTerbaikSelected = false;
+                          _isTersediaSelected = false;
                           _isTerdekatSelected = false;
                         });
                       },
                     ),
                     MyFilterChip(
-                      label: 'Terbaik',
-                      isSelected: _isTerbaikSelected,
+                      label: 'Tersedia',
+                      isSelected: _isTersediaSelected,
                       onSelected: (_) {
                         setState(() {
                           _isSemuaSelected = false;
-                          _isTerbaikSelected = true;
+                          _isTersediaSelected = true;
                           _isTerdekatSelected = false;
                         });
                       },
@@ -104,7 +108,7 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
                       onSelected: (_) {
                         setState(() {
                           _isSemuaSelected = false;
-                          _isTerbaikSelected = false;
+                          _isTersediaSelected = false;
                           _isTerdekatSelected = true;
                         });
                       },
@@ -113,6 +117,57 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
                 ),
                 BlocBuilder<DaftarPangkalanCubit, List<Pangkalan>>(
                   builder: (context, state) {
+                    if (_isTersediaSelected) {
+                      final List<Pangkalan> daftarPangkalan = [];
+
+                      for (Pangkalan pangkalan in state) {
+                        if (pangkalan.stok > 0) daftarPangkalan.add(pangkalan);
+                      }
+
+                      return Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: daftarPangkalan.length,
+                          itemBuilder: (context, i) {
+                            return MyPangkalanCard(
+                              pangkalan: daftarPangkalan[i],
+                            );
+                          },
+                        ),
+                      );
+                    }
+
+                    if (_isTerdekatSelected) {
+                      context.read<PosisiPenggunaCubit>().refresh();
+                      return BlocBuilder<PosisiPenggunaCubit, Position?>(
+                        builder: (context, posisiPengguna) {
+                          if (posisiPengguna == null) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+
+                          final List<Pangkalan> daftarPangkalan = [];
+
+                          for (Pangkalan pangkalan in state) {
+                            if (validasiKedekatanLokasi(
+                              context.read<PosisiPenggunaCubit>().coordinates!,
+                              pangkalan.coordinates,
+                            )) daftarPangkalan.add(pangkalan);
+                          }
+                          return Expanded(
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: daftarPangkalan.length,
+                              itemBuilder: (context, i) {
+                                return MyPangkalanCard(
+                                  pangkalan: daftarPangkalan[i],
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    }
                     return Expanded(
                       child: ListView.builder(
                         shrinkWrap: true,
@@ -124,46 +179,6 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
                     );
                   },
                 ),
-                // Expanded(
-                //   child: ListView(
-                //     shrinkWrap: true,
-                //     children: [
-                //       MyPangkalanCard(
-                //         pangkalan: Pangkalan(
-                //           nama: 'Pangkalan LPG Rahmi',
-                //           alamat:
-                //               'Jl. Sultan Adam Komplek Mekar Sari Blok 24B, No.52',
-                //           urlGambar:
-                //               'https://pict-a.sindonews.net/dyn/850/pena/news/2020/10/14/194/196024/pertamina-pecat-pangkalan-elpiji-gas-3-kg-terbukti-nakal-fuk.jpg',
-                //           rating: 7.4,
-                //           harga: Rupiah(23000),
-                //         ),
-                //       ),
-                //       MyPangkalanCard(
-                //         pangkalan: Pangkalan(
-                //           nama: 'Pangkalan H. Naim',
-                //           alamat:
-                //               'Jl. Banua Anyar Komp. 14 RT.10 RW.001 No.A98',
-                //           urlGambar:
-                //               'https://awsimages.detik.net.id/visual/2022/11/03/pangkalan-lpg-di-tangerang-selatan-2_169.jpeg?w=650',
-                //           rating: 8.2,
-                //           harga: Rupiah(25000),
-                //         ),
-                //       ),
-                //       MyPangkalanCard(
-                //         pangkalan: Pangkalan(
-                //           nama: 'Pangkalan LPG Putra',
-                //           alamat:
-                //               'Jl. Bintara Komplek UWU Uwaw Blok 10A, No.35',
-                //           urlGambar:
-                //               'https://asset-2.tstatic.net/pontianak/foto/bank/images/cara-daftar-pangkalan-gas-lpg-3-kg-dan-cara-daftar-agen-gas-lpg-3-kg-login-kemitraanpertaminacom.jpg',
-                //           rating: 7.4,
-                //           harga: Rupiah(23000),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
               ],
             ),
           ),

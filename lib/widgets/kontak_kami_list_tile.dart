@@ -23,7 +23,7 @@ class KontakKamiListTile extends StatelessWidget {
               ?.copyWith(fontWeight: FontWeight.bold),
         ),
         Text(body),
-        SizedBox(height: 18),
+        const SizedBox(height: 18),
       ],
     );
   }

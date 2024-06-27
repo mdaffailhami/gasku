@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:gasku/models/pengguna.dart';
-import 'package:gasku/pages/ganti_kata_sandi.dart';
 
 class MyVerifikasiOTPPage extends StatefulWidget {
   const MyVerifikasiOTPPage({
@@ -25,7 +24,7 @@ class _MyVerifikasiOTPPageState extends State<MyVerifikasiOTPPage> {
   void onSubmit() {
     if (_otp != widget.otp) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Kode verifikasi salah'),
+        content: const Text('Kode verifikasi salah'),
         backgroundColor: Theme.of(context).colorScheme.primary,
         action: SnackBarAction(
           label: 'Tutup',
@@ -79,7 +78,7 @@ class _MyVerifikasiOTPPageState extends State<MyVerifikasiOTPPage> {
               'Kami telah mengirimkan email verifikasi ke alamat email ${widget.pengguna.email}',
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 60),
+            const SizedBox(height: 60),
             OtpTextField(
               numberOfFields: 5,
               borderColor: Theme.of(context).colorScheme.primary,
@@ -93,12 +92,12 @@ class _MyVerifikasiOTPPageState extends State<MyVerifikasiOTPPage> {
                 onSubmit();
               }, // end onSubmit
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             SizedBox(
               width: double.infinity,
               child: FilledButton(
                 onPressed: () => onSubmit(),
-                child: Text('Verifikasi'),
+                child: const Text('Verifikasi'),
               ),
             )
           ],

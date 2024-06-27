@@ -42,21 +42,21 @@ class MyKontakKamiPage extends StatelessWidget {
                     .headlineMedium
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 19),
-              KontakKamiListTile(
+              const SizedBox(height: 19),
+              const KontakKamiListTile(
                 title: 'Nomor Telepon:',
                 body: '0877-1655-5618 - (Senin - Jumat, 09:00 - 17:00 WITA)',
               ),
-              KontakKamiListTile(
+              const KontakKamiListTile(
                 title: 'Email:',
                 body: 'Dukungan Teknis: gasku@gmail.com',
               ),
-              KontakKamiListTile(
+              const KontakKamiListTile(
                 title: 'Alamat:',
                 body:
                     'PT. Gasku Indonesia\nJl. Banjar Indah Komp. Mekar Sari, Kota Banjarmasin, Indonesia',
               ),
-              KontakKamiListTile(
+              const KontakKamiListTile(
                 title: 'Jam Operasional',
                 body: 'Senin - Jumat: 09:00 - 17:00 WIB\nSabtu - Minggu: Tutup',
               ),

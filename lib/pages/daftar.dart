@@ -52,7 +52,7 @@ class _MyDaftarPageState extends State<MyDaftarPage> {
                 await Pengguna.add(pengguna);
 
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Buat akun berhasil'),
+                  content: const Text('Buat akun berhasil'),
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   action: SnackBarAction(
                     label: 'Tutup',
@@ -63,7 +63,7 @@ class _MyDaftarPageState extends State<MyDaftarPage> {
 
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (_) => MyMasukPage()),
+                  MaterialPageRoute(builder: (_) => const MyMasukPage()),
                   (_) => false,
                 );
               } catch (e) {
@@ -90,11 +90,11 @@ class _MyDaftarPageState extends State<MyDaftarPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Gagal mengirim kode verifikasi'),
+            title: const Text('Gagal mengirim kode verifikasi'),
             actions: [
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Tutup'))
+                  child: const Text('Tutup'))
             ],
             content: Text(e.toString()),
           );

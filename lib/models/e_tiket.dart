@@ -21,11 +21,11 @@ class ETiket {
   String get nomor => 'LPG-${DateFormat('ddMMyyyy').format(tanggal)}';
 
   String get tanggalKedaluwarsa => DateFormat('dd/MM/yyyy')
-      .format(tanggal.add(Duration(days: 6)))
+      .format(tanggal.add(const Duration(days: 6)))
       .toString();
 
   String generateUrl(String nik) =>
-      '${dotenv.env['SERVER_URL']}/konfirmasi-e-tiket/${nik}/${sha1.convert(utf8.encode('${nik}(${DateFormat('dd-MM-yyyy').format(tanggal).toString()})')).toString()}';
+      '${dotenv.env['SERVER_URL']}/konfirmasi-e-tiket/$nik/${sha1.convert(utf8.encode('$nik(${DateFormat('dd-MM-yyyy').format(tanggal).toString()})')).toString()}';
 
   @override
   String toString() => 'ETiket(tanggal: $tanggal)';

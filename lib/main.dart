@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gasku/cubits/daftar_pangkalan.dart';
 import 'package:gasku/cubits/pengguna_masuk.dart';
-import 'package:gasku/pages/main.dart';
+import 'package:gasku/cubits/posisi_pengguna.dart';
 import 'package:gasku/pages/masuk.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,6 +15,7 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => PenggunaMasukCubit()),
         BlocProvider(create: (_) => DaftarPangkalanCubit()),
+        BlocProvider(create: (_) => PosisiPenggunaCubit()),
       ],
       child: const MyApp(),
     ),
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
           textTheme: GoogleFonts.poppinsTextTheme(),
-          bottomSheetTheme: BottomSheetThemeData(
+          bottomSheetTheme: const BottomSheetThemeData(
             showDragHandle: true,
             dragHandleSize: Size(100, 10),
             dragHandleColor: Colors.white,

@@ -15,7 +15,7 @@ class MyETiketListTile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Text(
           DateFormat('dd-MM-yyyy').format(eTiket.tanggal),
           maxLines: 1,
@@ -25,11 +25,11 @@ class MyETiketListTile extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
         ),
-        SizedBox(height: 6),
+        const SizedBox(height: 6),
         Container(
           width: MediaQuery.of(context).size.width * 0.9,
           height: 190,
-          padding: EdgeInsets.fromLTRB(25, 0, 25, 25),
+          padding: const EdgeInsets.fromLTRB(25, 0, 25, 25),
           decoration: BoxDecoration(
             border: Border.all(
               color: Theme.of(context).colorScheme.primary,
@@ -53,7 +53,7 @@ class MyETiketListTile extends StatelessWidget {
               Expanded(
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.symmetric(horizontal: 17),
+                  padding: const EdgeInsets.symmetric(horizontal: 17),
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.primary,
                     borderRadius: BorderRadius.circular(12),
@@ -88,7 +88,8 @@ class MyETiketListTile extends StatelessWidget {
                           ),
                           Text(
                             'Berlaku sampai ${eTiket.tanggalKedaluwarsa}',
-                            style: TextStyle(color: Colors.white, fontSize: 8),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 8),
                           ),
                         ],
                       ),

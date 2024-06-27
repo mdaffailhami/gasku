@@ -19,11 +19,11 @@ class MyProfilPage extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Keluar'),
+          title: const Text('Keluar'),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Batal'),
+              child: const Text('Batal'),
             ),
             TextButton(
               onPressed: () {
@@ -31,14 +31,14 @@ class MyProfilPage extends StatelessWidget {
 
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (_) => MyMasukPage()),
+                  MaterialPageRoute(builder: (_) => const MyMasukPage()),
                   (_) => false,
                 );
               },
-              child: Text('Keluar'),
+              child: const Text('Keluar'),
             ),
           ],
-          content: Text('Apakah kamu yakin ingin keluar?'),
+          content: const Text('Apakah kamu yakin ingin keluar?'),
         );
       },
     );
@@ -63,7 +63,7 @@ class MyProfilPage extends StatelessWidget {
                 children: [
                   BlocBuilder<PenggunaMasukCubit, Pengguna?>(
                     builder: (context, pengguna) {
-                      if (pengguna == null) return SizedBox.shrink();
+                      if (pengguna == null) return const SizedBox.shrink();
 
                       return Padding(
                         padding: const EdgeInsets.symmetric(
@@ -72,7 +72,7 @@ class MyProfilPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             pengguna.foto == null
-                                ? CircleAvatar(
+                                ? const CircleAvatar(
                                     radius: 30,
                                     foregroundImage:
                                         AssetImage('assets/default_pfp.jpg'),
@@ -82,7 +82,7 @@ class MyProfilPage extends StatelessWidget {
                                     foregroundImage: MemoryImage(
                                         base64Decode(pengguna.foto!)),
                                   ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,10 +154,11 @@ class MyProfilPage extends StatelessWidget {
                             IconButton(
                               onPressed: () => Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => MyEditProfilPage(),
+                                  builder: (context) =>
+                                      const MyEditProfilPage(),
                                 ),
                               ),
-                              icon: Icon(Icons.edit_square, size: 28),
+                              icon: const Icon(Icons.edit_square, size: 28),
                             )
                           ],
                         ),
@@ -167,7 +168,7 @@ class MyProfilPage extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(12),
                         bottomRight: Radius.circular(12),
                       ),
@@ -175,17 +176,17 @@ class MyProfilPage extends StatelessWidget {
                     child: Material(
                       color: Colors.transparent,
                       child: InkWell(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(12),
                           bottomRight: Radius.circular(12),
                         ),
                         onTap: () {},
                         child: Padding(
-                          padding: EdgeInsets.all(14),
+                          padding: const EdgeInsets.all(14),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.contact_emergency_outlined,
                                 color: Colors.white,
                               ),
@@ -199,7 +200,7 @@ class MyProfilPage extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.arrow_forward_ios_rounded,
                                 color: Colors.white,
                               ),
@@ -212,7 +213,7 @@ class MyProfilPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
             Container(
               decoration: BoxDecoration(
                 border: Border.all(
@@ -228,13 +229,13 @@ class MyProfilPage extends StatelessWidget {
                     text: 'Pusat Bantuan',
                     onTap: () {},
                   ),
-                  MyDivider(height: 1, indent: 12, endIndent: 12),
+                  const MyDivider(height: 1, indent: 12, endIndent: 12),
                   MyListTileButton(
                     icon: Icons.shield_moon_outlined,
                     text: 'Pemberitahuan Privasi',
                     onTap: () {},
                   ),
-                  MyDivider(height: 1, indent: 12, endIndent: 12),
+                  const MyDivider(height: 1, indent: 12, endIndent: 12),
                   MyListTileButton(
                     icon: Icons.notes,
                     text: 'FAQ',
@@ -244,7 +245,7 @@ class MyProfilPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  MyDivider(height: 1, indent: 12, endIndent: 12),
+                  const MyDivider(height: 1, indent: 12, endIndent: 12),
                   MyListTileButton(
                     icon: Icons.contacts_outlined,
                     text: 'Kontak Kami',
@@ -257,13 +258,13 @@ class MyProfilPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               child: OutlinedButton.icon(
                 onPressed: () => onKeluarButtonPressed(context),
                 style: OutlinedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 14),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
                   side: BorderSide(
                     color: Theme.of(context).colorScheme.outlineVariant,
                   ),

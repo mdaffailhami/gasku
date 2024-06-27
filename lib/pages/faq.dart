@@ -42,34 +42,34 @@ class MyFAQPage extends StatelessWidget {
                     .headlineMedium
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 19),
-              MyFAQListTile(
+              const SizedBox(height: 19),
+              const MyFAQListTile(
                 title: 'Pendaftaran dan Akun',
                 subtitle: 'Bagaimana cara mendaftar di aplikasi ini?',
                 body:
                     'Anda dapat mendaftar dengan mengunduh aplikasi dari Google Play Store, lalu mengikuti petunjuk pendaftaran yang ada di aplikasi.',
               ),
-              MyFAQListTile(
+              const MyFAQListTile(
                 title: null,
                 subtitle:
                     'Saya lupa kata sandi akun saya, bagaimana cara meresetnya?',
                 body:
                     'Anda dapat mereset kata sandi dengan mengklik "Lupa Kata Sandi" di halaman login dan mengikuti petunjuk yang dikirimkan ke email Anda.',
               ),
-              MyFAQListTile(
+              const MyFAQListTile(
                 title: 'Keamanan dan Privasi',
                 subtitle: 'Bagaimana data pribadi saya dilindungi?',
                 body:
                     'Kami menggunakan enkripsi SSL dan protokol keamanan lainnya untuk melindungi data pribadi Anda.',
               ),
-              MyFAQListTile(
+              const MyFAQListTile(
                 title: 'Masalah Teknis',
                 subtitle:
                     'Apa yang harus dilakukan jika aplikasi tidak berfungsi dengan baik?',
                 body:
                     'Coba tutup aplikasi dan buka kembali, atau restart perangkat Anda. Jika masalah masih berlanjut, hubungi dukungan teknis melalui email gasku@gmail.com.',
               ),
-              MyFAQListTile(
+              const MyFAQListTile(
                 title: null,
                 subtitle: 'Bagaimana cara melaporkan bug atau masalah lainnya?',
                 body:

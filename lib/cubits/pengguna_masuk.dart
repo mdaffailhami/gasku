@@ -10,8 +10,9 @@ class PenggunaMasukCubit extends Cubit<Pengguna?> {
   Future<void> masuk({required String nik, required String kataSandi}) async {
     final pengguna = await Pengguna.get(nik);
 
-    if (pengguna.kataSandi != sha1.convert(utf8.encode(kataSandi)).toString())
+    if (pengguna.kataSandi != sha1.convert(utf8.encode(kataSandi)).toString()) {
       throw 'Password salah';
+    }
 
     emit(pengguna);
   }
