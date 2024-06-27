@@ -142,13 +142,24 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
                       return BlocBuilder<PosisiPenggunaCubit, Position?>(
                         builder: (context, posisiPengguna) {
                           if (posisiPengguna == null) {
-                            return const Center(
-                                child: CircularProgressIndicator());
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 30),
+                              child: Center(
+                                child: Text(
+                                  'Silahkan nyalakan lokasi anda!',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                              ),
+                            );
                           }
 
                           final List<Pangkalan> daftarPangkalan = [];
 
                           for (Pangkalan pangkalan in state) {
+                            // print(validasiKedekatanLokasi(
+                            //   context.read<PosisiPenggunaCubit>().coordinates!,
+                            //   pangkalan.coordinates,
+                            // ));
                             if (validasiKedekatanLokasi(
                               context.read<PosisiPenggunaCubit>().coordinates!,
                               pangkalan.coordinates,
