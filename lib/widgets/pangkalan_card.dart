@@ -72,7 +72,7 @@ class MyPangkalanCard extends StatelessWidget {
                       ),
                       SizedBox(height: 3),
                       Text(
-                        'Stok: 12',
+                        'Stok: ${pangkalan.stok}',
                         overflow: TextOverflow.ellipsis,
                         style:
                             Theme.of(context).textTheme.labelMedium?.copyWith(
