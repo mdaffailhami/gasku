@@ -120,6 +120,14 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
                 ),
                 BlocBuilder<DaftarPangkalanCubit, List<Pangkalan>>(
                   builder: (context, state) {
+                    if (state.isEmpty) {
+                      return const Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 30),
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
                     if (_isTersediaSelected) {
                       final List<Pangkalan> daftarPangkalan = [];
 
