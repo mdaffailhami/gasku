@@ -8,8 +8,10 @@ import 'package:gasku/pages/edit_profil.dart';
 import 'package:gasku/pages/faq.dart';
 import 'package:gasku/pages/kontak_kami.dart';
 import 'package:gasku/pages/masuk.dart';
+import 'package:gasku/utils/show_loading_screen.dart';
 import 'package:gasku/widgets/divider.dart';
 import 'package:gasku/widgets/list_tile_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyProfilPage extends StatelessWidget {
   const MyProfilPage({super.key});
@@ -26,14 +28,35 @@ class MyProfilPage extends StatelessWidget {
               child: const Text('Batal'),
             ),
             TextButton(
-              onPressed: () {
-                context.read<PenggunaMasukCubit>().keluar();
+              onPressed: () async {
+                showLoadingScreen(context);
 
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyMasukPage()),
-                  (_) => false,
-                );
+                try {
+                  (await SharedPreferences.getInstance())
+                      .remove('nik_pengguna_masuk');
+
+                  if (!context.mounted) throw 'Terjadi kesalahan';
+
+                  context.read<PenggunaMasukCubit>().keluar();
+
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (_) => const MyMasukPage()),
+                    (_) => false,
+                  );
+                } catch (e) {
+                  Navigator.pop(context);
+
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(e.toString()),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    action: SnackBarAction(
+                      label: 'Tutup',
+                      onPressed: () =>
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+                    ),
+                  ));
+                }
               },
               child: const Text('Keluar'),
             ),

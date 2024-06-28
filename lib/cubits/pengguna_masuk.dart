@@ -17,6 +17,12 @@ class PenggunaMasukCubit extends Cubit<Pengguna?> {
     emit(pengguna);
   }
 
+  Future<void> masukTanpaSandi({required String nik}) async {
+    final pengguna = await Pengguna.get(nik);
+
+    emit(pengguna);
+  }
+
   Future<void> edit(Pengguna pengguna) async {
     await Pengguna.edit(pengguna.nik, pengguna);
 

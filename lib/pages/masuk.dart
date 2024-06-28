@@ -8,6 +8,7 @@ import 'package:gasku/utils/show_loading_screen.dart';
 import 'package:gasku/widgets/filled_button.dart';
 import 'package:gasku/widgets/text_form_field.dart';
 import 'package:gasku/pages/daftar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyMasukPage extends StatefulWidget {
   const MyMasukPage({super.key});
@@ -31,6 +32,9 @@ class _MyMasukPageState extends State<MyMasukPage> {
       await context
           .read<PenggunaMasukCubit>()
           .masuk(nik: _nik, kataSandi: _kataSandi);
+
+      (await SharedPreferences.getInstance())
+          .setString('nik_pengguna_masuk', _nik);
 
       Navigator.pushAndRemoveUntil(
         context,
