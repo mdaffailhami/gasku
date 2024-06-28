@@ -42,7 +42,8 @@ class _MyLaporanModalBottomSheetState extends State<MyLaporanModalBottomSheet> {
     final url = '${dotenv.env['SERVER_URL']}/lapor-pangkalan/';
 
     final reqBody = {
-      "nim_pelapor": pengguna.nik,
+      "jenis_laporan": _jenisLaporan!.value,
+      "nik_pelapor": pengguna.nik,
       "nama_pelapor": pengguna.nama,
       "id_pangkalan": widget.pangkalan.id,
       "nama_pangkalan": widget.pangkalan.nama,
