@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:gasku/components/laporan_modal_bottom_sheet.dart';
 import 'package:gasku/components/ulasan_modal_bottom_sheet.dart';
 import 'package:gasku/models/pangkalan.dart';
 import 'package:gasku/utils/format_rupiah.dart';
@@ -206,6 +207,31 @@ class MyDetailPangkalanPage extends StatelessWidget {
                             ),
                       ),
                     ],
+                  ),
+                  const SizedBox(height: 15),
+                  OutlinedButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) {
+                          return MyLaporanModalBottomSheet(
+                            pangkalan: pangkalan,
+                          );
+                        },
+                      );
+                    },
+                    style: OutlinedButton.styleFrom(
+                      overlayColor: Colors.red,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      side: BorderSide(color: Colors.red),
+                    ),
+                    child: Text(
+                      'Laporkan Pangkalan',
+                      style: TextStyle(color: Colors.red),
+                    ),
                   ),
                   const SizedBox(height: 50),
                   const Text(

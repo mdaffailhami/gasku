@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gasku/cubits/daftar_pangkalan.dart';
 import 'package:gasku/cubits/pengguna_masuk.dart';
 import 'package:gasku/models/pangkalan.dart';
 import 'package:gasku/models/pengguna.dart';
@@ -56,6 +55,8 @@ class _MyUlasanModalBottomSheetState extends State<MyUlasanModalBottomSheet> {
         ),
       ));
     } catch (e) {
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(e.toString()),
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -133,7 +134,7 @@ class _MyUlasanModalBottomSheetState extends State<MyUlasanModalBottomSheet> {
             SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: () => _onSubmit(),
+                onPressed: _rating == 0 ? null : () => _onSubmit(),
                 child: const Text(
                   'Kirim Ulasan',
                   style: TextStyle(fontWeight: FontWeight.bold),
