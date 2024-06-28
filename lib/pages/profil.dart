@@ -8,6 +8,7 @@ import 'package:gasku/pages/edit_profil.dart';
 import 'package:gasku/pages/faq.dart';
 import 'package:gasku/pages/kontak_kami.dart';
 import 'package:gasku/pages/masuk.dart';
+import 'package:gasku/pages/pengajuan_pangkalan.dart';
 import 'package:gasku/utils/show_loading_screen.dart';
 import 'package:gasku/widgets/divider.dart';
 import 'package:gasku/widgets/list_tile_button.dart';
@@ -247,24 +248,34 @@ class MyProfilPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
+                  // MyListTileButton(
+                  //   icon: Icons.question_mark,
+                  //   text: 'Pusat Bantuan',
+                  //   onTap: () {},
+                  // ),
+                  // const MyDivider(height: 1, indent: 12, endIndent: 12),
+                  // MyListTileButton(
+                  //   icon: Icons.shield_moon_outlined,
+                  //   text: 'Pemberitahuan Privasi',
+                  //   onTap: () {},
+                  // ),
+                  // const MyDivider(height: 1, indent: 12, endIndent: 12),
                   MyListTileButton(
-                    icon: Icons.question_mark,
-                    text: 'Pusat Bantuan',
-                    onTap: () {},
-                  ),
-                  const MyDivider(height: 1, indent: 12, endIndent: 12),
-                  MyListTileButton(
-                    icon: Icons.shield_moon_outlined,
-                    text: 'Pemberitahuan Privasi',
-                    onTap: () {},
-                  ),
-                  const MyDivider(height: 1, indent: 12, endIndent: 12),
-                  MyListTileButton(
-                    icon: Icons.notes,
+                    icon: Icons.question_answer_outlined,
                     text: 'FAQ',
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const MyFAQPage(),
+                      ),
+                    ),
+                  ),
+                  const MyDivider(height: 1, indent: 12, endIndent: 12),
+                  MyListTileButton(
+                    icon: Icons.assignment_outlined,
+                    text: 'Pengajuan Pangkalan',
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const MyPengajuanPangkalanPage(),
                       ),
                     ),
                   ),

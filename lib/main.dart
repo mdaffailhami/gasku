@@ -46,35 +46,36 @@ class MyApp extends StatelessWidget {
             dragHandleColor: Colors.white,
             backgroundColor: Colors.transparent,
           )),
-      home: FutureBuilder(
-        future: SharedPreferences.getInstance(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const SizedBox.shrink();
-          } else {
-            final nikPengguna = snapshot.data!.getString('nik_pengguna_masuk');
+      home: MyMasukPage(),
+      // home: FutureBuilder(
+      //   future: SharedPreferences.getInstance(),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.waiting) {
+      //       return const SizedBox.shrink();
+      //     } else {
+      //       final nikPengguna = snapshot.data!.getString('nik_pengguna_masuk');
 
-            if (nikPengguna == null) return const MyMasukPage();
+      //       if (nikPengguna == null) return const MyMasukPage();
 
-            return FutureBuilder(
-              future: context
-                  .read<PenggunaMasukCubit>()
-                  .masukTanpaSandi(nik: nikPengguna),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (context.read<PenggunaMasukCubit>().state == null) {
-                    return const MyMasukPage();
-                  }
+      //       return FutureBuilder(
+      //         future: context
+      //             .read<PenggunaMasukCubit>()
+      //             .masukTanpaSandi(nik: nikPengguna),
+      //         builder: (context, snapshot) {
+      //           if (snapshot.connectionState == ConnectionState.done) {
+      //             if (context.read<PenggunaMasukCubit>().state == null) {
+      //               return const MyMasukPage();
+      //             }
 
-                  return const MyMainPage();
-                } else {
-                  return const SizedBox.shrink();
-                }
-              },
-            );
-          }
-        },
-      ),
+      //             return const MyMainPage();
+      //           } else {
+      //             return const SizedBox.shrink();
+      //           }
+      //         },
+      //       );
+      //     }
+      //   },
+      // ),
     );
   }
 }
