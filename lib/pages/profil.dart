@@ -75,21 +75,20 @@ class MyProfilPage extends StatelessWidget {
         padding: const EdgeInsets.all(25),
         child: Column(
           children: [
-            Card(
-              color: Theme.of(context).colorScheme.surface,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-                side: BorderSide(
-                    width: 1,
-                    color: Theme.of(context).colorScheme.outlineVariant),
-              ),
-              child: Column(
-                children: [
-                  BlocBuilder<PenggunaMasukCubit, Pengguna?>(
-                    builder: (context, pengguna) {
-                      if (pengguna == null) return const SizedBox.shrink();
-
-                      return Padding(
+            BlocBuilder<PenggunaMasukCubit, Pengguna?>(
+              builder: (context, pengguna) {
+                if (pengguna == null) return const SizedBox.shrink();
+                return Card(
+                  color: Theme.of(context).colorScheme.surface,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(
+                        width: 1,
+                        color: Theme.of(context).colorScheme.outlineVariant),
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 40),
                         child: Row(
@@ -186,56 +185,96 @@ class MyProfilPage extends StatelessWidget {
                             )
                           ],
                         ),
-                      );
-                    },
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(12),
-                        bottomRight: Radius.circular(12),
                       ),
-                    ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(12),
-                          bottomRight: Radius.circular(12),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(12),
+                            bottomRight: Radius.circular(12),
+                          ),
                         ),
-                        onTap: () {},
-                        child: Padding(
-                          padding: const EdgeInsets.all(14),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Icon(
-                                Icons.contact_emergency_outlined,
-                                color: Colors.white,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(12),
+                              bottomRight: Radius.circular(12),
+                            ),
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text('E-Kartu'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(),
+                                        child: Text('Tutup'),
+                                      )
+                                    ],
+                                    content: SelectableText(
+                                        '''● Nama: ${pengguna.nama}
+● NIK: ${pengguna.nik}
+● KK: ${pengguna.kk}
+● Email: ${pengguna.email}
+'''),
+                                    // content: Column(
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    //   children: [
+                                    //     Row(
+                                    //       children: [
+                                    //         const Text('Nama: '),
+                                    //         Text(pengguna.nama)
+                                    //       ],
+                                    //     ),
+                                    //     Row(
+                                    //       children: [
+                                    //         const Text('NIK: '),
+                                    //         Text(pengguna.nik)
+                                    //       ],
+                                    //     ),
+                                    //   ],
+                                    // ),
+                                  );
+                                },
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(14),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Icon(
+                                    Icons.contact_emergency_outlined,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    'E-Kartu',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                  const Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    color: Colors.white,
+                                  ),
+                                ],
                               ),
-                              Text(
-                                'E-Kartu',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                              const Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: Colors.white,
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              },
             ),
             const SizedBox(height: 25),
             Container(
