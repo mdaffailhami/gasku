@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gasku/cubits/daftar_pangkalan.dart';
+import 'package:gasku/cubits/pengguna_masuk.dart';
+import 'package:gasku/models/pangkalan.dart';
+import 'package:gasku/models/pengguna.dart';
+import 'package:gasku/pages/detail_pangkalan.dart';
+import 'package:gasku/utils/show_loading_screen.dart';
 
 class MyUlasanModalBottomSheet extends StatefulWidget {
-  const MyUlasanModalBottomSheet({super.key});
+  const MyUlasanModalBottomSheet({super.key, required this.pangkalan});
+
+  final Pangkalan pangkalan;
 
   @override
   State<MyUlasanModalBottomSheet> createState() =>
@@ -10,6 +19,53 @@ class MyUlasanModalBottomSheet extends StatefulWidget {
 
 class _MyUlasanModalBottomSheetState extends State<MyUlasanModalBottomSheet> {
   int _rating = 0;
+  String _komentar = '';
+
+  Future<void> _onSubmit() async {
+    showLoadingScreen(context);
+
+    final Pengguna pengguna = context.read<PenggunaMasukCubit>().state!;
+
+    widget.pangkalan.ulasan.add({
+      'nik': pengguna.nik,
+      'rating': _rating,
+      'komentar': _komentar,
+    });
+
+    try {
+      await Pangkalan.updateOnly(
+        widget.pangkalan.id!,
+        {'ulasan': widget.pangkalan.ulasan},
+      );
+
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) =>
+              MyDetailPangkalanPage(pangkalan: widget.pangkalan),
+        ),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Ulasan terkirim'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        action: SnackBarAction(
+          label: 'Tutup',
+          onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+        ),
+      ));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        action: SnackBarAction(
+          label: 'Tutup',
+          onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+        ),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +118,7 @@ class _MyUlasanModalBottomSheetState extends State<MyUlasanModalBottomSheet> {
             TextField(
               keyboardType: TextInputType.multiline,
               maxLines: 3,
+              onChanged: (value) => _komentar = value,
               decoration: InputDecoration(
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -76,7 +133,7 @@ class _MyUlasanModalBottomSheetState extends State<MyUlasanModalBottomSheet> {
             SizedBox(
               width: double.infinity,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () => _onSubmit(),
                 child: const Text(
                   'Kirim Ulasan',
                   style: TextStyle(fontWeight: FontWeight.bold),

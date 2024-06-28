@@ -8,4 +8,19 @@ class DaftarPangkalanCubit extends Cubit<List<Pangkalan>> {
 
   Future<void> search(String keywords) async =>
       emit(await Pangkalan.get(search: keywords));
+
+  // Future<void> tambahUlasan(
+  //     String idPangkalan, Map<String, dynamic> ulasan) async {
+  //   await Pangkalan.updateOnly(
+  //     idPangkalan,
+  //     {'ulasan': ulasan},
+  //   );
+
+  //   final List<Pangkalan> newState = List.from(state);
+  //   final edittedIndex =
+  //       newState.indexWhere((pangkalan) => pangkalan.id == idPangkalan);
+  //   newState[edittedIndex].ulasan.add(ulasan);
+
+  //   emit(newState);
+  // }
 }

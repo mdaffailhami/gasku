@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class Pangkalan {
+  final String? id;
   final String nama;
   final String alamat;
   final int harga;
@@ -18,6 +19,7 @@ class Pangkalan {
   final List ulasan;
 
   Pangkalan({
+    this.id,
     required this.nama,
     required this.alamat,
     required this.harga,
@@ -34,6 +36,7 @@ class Pangkalan {
   static final url = '${dotenv.env['SERVER_URL']}/pangkalan';
 
   Pangkalan copyWith({
+    String? id,
     String? nama,
     String? alamat,
     int? harga,
@@ -47,6 +50,7 @@ class Pangkalan {
     List? ulasan,
   }) {
     return Pangkalan(
+      id: id ?? this.id,
       nama: nama ?? this.nama,
       alamat: alamat ?? this.alamat,
       harga: harga ?? this.harga,
@@ -77,6 +81,7 @@ class Pangkalan {
     for (Map<String, dynamic> pangkalan in response['pangkalan']) {
       daftarPangkalan.add(
         Pangkalan(
+          id: pangkalan['_id'],
           nama: pangkalan['nama'],
           alamat: pangkalan['alamat'],
           harga: pangkalan['harga'],
@@ -95,17 +100,33 @@ class Pangkalan {
     return daftarPangkalan;
   }
 
+  static Future<void> updateOnly(String id, Map<String, dynamic> data) async {
+    final Map<String, dynamic> response = json.decode((await http.patch(
+      Uri.parse('$url/$id'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(data),
+    ))
+        .body);
+
+    if (response['status'] == 'failed') throw response['message'];
+  }
+
   double get ratingAverage {
     double sum = 0;
     for (var u in ulasan) {
       sum = sum + u['rating'];
     }
 
-    return ulasan.isEmpty ? 0 : sum / ulasan.length;
+    final double average = sum / ulasan.length;
+
+    return ulasan.isEmpty ? 0 : double.parse(average.toStringAsFixed(1));
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      '_id': id,
       'nama': nama,
       'alamat': alamat,
       'harga': harga,
@@ -122,6 +143,7 @@ class Pangkalan {
 
   factory Pangkalan.fromMap(Map<String, dynamic> map) {
     return Pangkalan(
+      id: map['_id'] as String,
       nama: map['nama'] as String,
       alamat: map['alamat'] as String,
       harga: map['harga'] as int,
@@ -149,14 +171,15 @@ class Pangkalan {
 
   @override
   String toString() {
-    return 'Pangkalan(nama: $nama, alamat: $alamat, harga: $harga, stok: $stok, email: $email, telepon: $telepon, gmap: $gmap, kataSandi: $kataSandi, coordinates: $coordinates, foto: $foto, ulasan: $ulasan)';
+    return 'Pangkalan(id: $id, nama: $nama, alamat: $alamat, harga: $harga, stok: $stok, email: $email, telepon: $telepon, gmap: $gmap, kataSandi: $kataSandi, coordinates: $coordinates, foto: $foto, ulasan: $ulasan)';
   }
 
   @override
   bool operator ==(covariant Pangkalan other) {
     if (identical(this, other)) return true;
 
-    return other.nama == nama &&
+    return other.id == id &&
+        other.nama == nama &&
         other.alamat == alamat &&
         other.harga == harga &&
         other.stok == stok &&
@@ -171,7 +194,8 @@ class Pangkalan {
 
   @override
   int get hashCode {
-    return nama.hashCode ^
+    return id.hashCode ^
+        nama.hashCode ^
         alamat.hashCode ^
         harga.hashCode ^
         stok.hashCode ^

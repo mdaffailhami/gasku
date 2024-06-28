@@ -221,6 +221,7 @@ class MyDetailPangkalanPage extends StatelessWidget {
                             builder: (context) {
                               final double ratingAverage =
                                   pangkalan.ratingAverage;
+
                               final int totalStar = ratingAverage.floor();
                               final List<Widget> widgets = [];
 
@@ -269,7 +270,9 @@ class MyDetailPangkalanPage extends StatelessWidget {
                             context: context,
                             isScrollControlled: true,
                             builder: (context) {
-                              return const MyUlasanModalBottomSheet();
+                              return MyUlasanModalBottomSheet(
+                                pangkalan: pangkalan,
+                              );
                             },
                           );
                         },
