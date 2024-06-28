@@ -24,8 +24,11 @@ class ETiket {
       .format(tanggal.add(const Duration(days: 6)))
       .toString();
 
+  String get tanggalTerformat =>
+      DateFormat('dd-MM-yyyy').format(tanggal).toString();
+
   String generateUrl(String nik) =>
-      '${dotenv.env['SERVER_URL']}/konfirmasi-e-tiket/$nik/${sha1.convert(utf8.encode('$nik(${DateFormat('dd-MM-yyyy').format(tanggal).toString()})')).toString()}';
+      '${dotenv.env['SERVER_URL']}/konfirmasi-e-tiket/$nik/${sha1.convert(utf8.encode('$nik($tanggalTerformat)')).toString()}';
 
   @override
   String toString() => 'ETiket(tanggal: $tanggal)';

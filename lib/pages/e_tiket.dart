@@ -22,6 +22,25 @@ class MyETiketPage extends StatelessWidget {
 
         final eTiket = ETiket(tanggal: senin);
 
+        if (state.riwayatETiket.contains(eTiket.tanggalTerformat)) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'E-Tiket mingguan anda sudah terpakai',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                const Text(
+                  'E-Tiket diperbaharui setiap hari senin',
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          );
+        }
+
         return Center(
           child: Container(
             width: MediaQuery.of(context).size.width * 0.9,
