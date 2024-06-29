@@ -60,7 +60,7 @@ class _MyEditProfilPageState extends State<MyEditProfilPage> {
       await context.read<PenggunaMasukCubit>().edit(pengguna);
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Edit profil berhasil'),
+        content: const Text('Edit profil berhasil'),
         backgroundColor: Theme.of(context).colorScheme.primary,
         action: SnackBarAction(
           label: 'Tutup',
@@ -131,7 +131,7 @@ class _MyEditProfilPageState extends State<MyEditProfilPage> {
                       );
                     },
                     child: _foto == null
-                        ? CircleAvatar(
+                        ? const CircleAvatar(
                             radius: 70,
                             foregroundImage:
                                 AssetImage('assets/default_pfp.jpg'),

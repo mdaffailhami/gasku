@@ -47,7 +47,7 @@ class _MyUlasanModalBottomSheetState extends State<MyUlasanModalBottomSheet> {
       );
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Ulasan terkirim'),
+        content: const Text('Ulasan terkirim'),
         backgroundColor: Theme.of(context).colorScheme.primary,
         action: SnackBarAction(
           label: 'Tutup',

@@ -206,12 +206,12 @@ class MyProfilPage extends StatelessWidget {
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: Text('E-Kartu'),
+                                    title: const Text('E-Kartu'),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
                                             Navigator.of(context).pop(),
-                                        child: Text('Tutup'),
+                                        child: const Text('Tutup'),
                                       )
                                     ],
                                     content: SelectableText(

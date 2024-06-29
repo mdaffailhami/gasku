@@ -226,9 +226,9 @@ class MyDetailPangkalanPage extends StatelessWidget {
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
-                      side: BorderSide(color: Colors.red),
+                      side: const BorderSide(color: Colors.red),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Laporkan Pangkalan',
                       style: TextStyle(color: Colors.red),
                     ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gasku/widgets/faq_list_tile.dart';
 import 'package:gasku/widgets/pengajuan_pangkalan_list_tile.dart';
 
 class MyPengajuanPangkalanPage extends StatelessWidget {

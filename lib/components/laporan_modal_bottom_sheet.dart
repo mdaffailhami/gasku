@@ -76,7 +76,7 @@ class _MyLaporanModalBottomSheetState extends State<MyLaporanModalBottomSheet> {
         ));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Laporan terkirim'),
+          content: const Text('Laporan terkirim'),
           backgroundColor: Theme.of(context).colorScheme.primary,
           action: SnackBarAction(
             label: 'Tutup',

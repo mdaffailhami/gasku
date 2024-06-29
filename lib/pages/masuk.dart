@@ -38,7 +38,7 @@ class _MyMasukPageState extends State<MyMasukPage> {
 
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (_) => MyMainPage()),
+        MaterialPageRoute(builder: (_) => const MyMainPage()),
         (_) => false,
       );
     } catch (e) {
@@ -59,7 +59,7 @@ class _MyMasukPageState extends State<MyMasukPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return MyGantiKataSandiDialog();
+        return const MyGantiKataSandiDialog();
       },
     );
   }
