@@ -21,6 +21,12 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
   bool _isTersediaSelected = false;
   bool _isTerdekatSelected = false;
 
+  final _carouselImages = [
+    'assets/carousel1.jpeg',
+    'assets/carousel2.jpeg',
+    'assets/carousel3.png',
+  ];
+
   @override
   Widget build(BuildContext context) {
     context.read<DaftarPangkalanCubit>().refresh();
@@ -37,11 +43,11 @@ class _MyBerandaPageState extends State<MyBerandaPage> {
             showIndicator: true,
             slideIndicator: const CircularSlideIndicator(),
           ),
-          items: [1, 2, 3, 4, 5].map((i) {
+          items: _carouselImages.map((image) {
             return Builder(
               builder: (BuildContext context) {
-                return Image.network(
-                  'https://awsimages.detik.net.id/visual/2022/01/28/infografis-ri-tajir-gas-alam-tapi-kok-impor-lpg_169.jpeg?w=650',
+                return Image.asset(
+                  image,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 );
