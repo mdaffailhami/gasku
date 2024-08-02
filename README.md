@@ -1,3 +1,11 @@
+<hr>
+
+**Note**: This is the repository for the GasKu app that was built on top of Flutter.
+
+GasKu Backend Server's Repository: [https://github.com/mdaffailhami/gasku_server](https://github.com/mdaffailhami/gasku_server)
+
+<hr>
+
 **```KMIPN VI | E-Government | CodeWave```**
 
 ![](https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif)
