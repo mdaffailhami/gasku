@@ -8,6 +8,10 @@
 
 **GasKu** was created to be exhibited in the **KMIPN VI** competition for the **E-Government** category which was held in **July 2024** at the **Jakarta State Polytechnic** (**The University of Indonesia**)
 
+<img alt="GasKu" width="500" src="https://github.com/user-attachments/assets/31469bbe-7457-457f-b573-1ab9b3908ed3">
+<br>
+<img alt="GasKu Poster" width="500" src="https://github.com/user-attachments/assets/bb8080bb-43ce-4b87-9e16-b9d7ff255faa">
+
 ## Technologies Used
 
 - **Dart Flutter**: Framework for developing applications.
